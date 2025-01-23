@@ -1,14 +1,28 @@
+// hooks/useRocketSelection.jsx
 import { useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, ApolloError } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { GET_ROCKETS } from "@graphql/queries";
 import { START_RACE } from "@graphql/mutations";
-import useRaceStore from "src/lib/useRaceStore";
-import useRaceHistoryStore from "src/lib/useRaceHistoryStore";
+import useRaceStore from "src/store/useRaceStore";
+import useRaceHistoryStore from "src/store/useRaceHistoryStore";
 import { RocketInteraction } from "@types/enriched";
+import { Rocket } from "@types/graphql";
 
-export const useRocketSelection = () => {
-  const { loading, error, data } = useQuery(GET_ROCKETS);
+type UseRocketSelectionResult = {
+  loading: boolean;
+  error: ApolloError | null;
+  rockets: RocketInteraction[];
+  refetch: () => Promise<any>;
+  selectedRockets: RocketInteraction[];
+  selectedRocketNames: string;
+  toggleRocketSelection: (rocket: RocketInteraction) => void;
+  handleLaunch: () => Promise<void>;
+  launching: boolean;
+};
+
+export const useRocketSelection = (): UseRocketSelectionResult => {
+  const { loading, data, error, refetch } = useQuery(GET_ROCKETS);
   const [startRace] = useMutation(START_RACE);
   const [selectedRockets, setSelectedRockets] = useState<RocketInteraction[]>(
     []
@@ -68,6 +82,7 @@ export const useRocketSelection = () => {
     loading,
     error,
     rockets: data?.rockets || [],
+    refetch,
     selectedRockets,
     selectedRocketNames,
     toggleRocketSelection,

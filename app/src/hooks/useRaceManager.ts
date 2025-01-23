@@ -6,12 +6,15 @@ import { transformDetailedRaceData } from "@services/transformers";
 import { RaceEnriched } from "@types/enriched";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import useRaceStore from "src/lib/useRaceStore";
+import useRaceStore from "src/store/useRaceStore";
 
 type UseRaceManagerResult = {
   raceData: RaceEnriched | null;
   loading: boolean;
+  rocketsError: Error | null;
   raceError: Error | null;
+  refetchRockets: any;
+  refetchRace: any;
   rocketNameExploded: string | null;
   winner: string | null;
   rocketProgress1: number;
@@ -33,8 +36,9 @@ const useRaceManager = (): UseRaceManagerResult => {
   // GQL: get race
   const {
     loading: loadingRace,
-    error: raceError,
     data: fetchedRaceData,
+    error: raceError,
+    refetch: refetchRace,
   } = useQuery(GET_RACE, {
     variables: { raceId },
     fetchPolicy: "network-only",
@@ -42,7 +46,12 @@ const useRaceManager = (): UseRaceManagerResult => {
   });
 
   // GQL : get rockets
-  const { loading: loadingRockets, data: rocketsData } = useQuery(GET_ROCKETS, {
+  const {
+    loading: loadingRockets,
+    data: rocketsData,
+    error: rocketsError,
+    refetch: refetchRockets,
+  } = useQuery(GET_ROCKETS, {
     skip: !!raceData,
   });
 
@@ -120,9 +129,12 @@ const useRaceManager = (): UseRaceManagerResult => {
   return {
     raceData,
     loading,
-    raceError,
     rocketNameExploded,
     winner,
+    rocketsError,
+    raceError,
+    refetchRockets,
+    refetchRace,
     rocketProgress1,
     rocketProgress2,
     isRocket1Leading,
