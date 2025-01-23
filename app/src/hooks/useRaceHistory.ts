@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useRaceHistoryStore from "src/lib/useRaceHistoryStore";
+import useRaceHistoryStore from "src/store/useRaceHistoryStore";
 import { fetchRaceDetails } from "@services/fetchRaceDetails";
 import { RaceEnriched } from "@types/enriched";
 

@@ -21,8 +21,6 @@ const RocketBox = ({
   textColorClass,
   progress,
 }: RocketBoxProps) => {
-  console.log("progress", progress);
-
   const containerClasses = clsx(
     "relative flex flex-col items-center justify-between p-6 rounded-lg bg-black bg-opacity-75 shadow-lg transition-transform",
     isLeading ? "scale-105 z-20" : "scale-95 z-10",

@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Confetti from "react-confetti";
 import { RaceEnriched } from "@types/graphql";
-import { useRouter } from "next/router";
+import { NextRouter } from "next/router";
 
 type WinnerMessageProps = {
   winner: string;
   width: number;
   height: number;
   raceData: RaceEnriched;
-  router: ReturnType<typeof useRouter>;
+  router: NextRouter;
   rocketNameExploded?: string;
 };
 

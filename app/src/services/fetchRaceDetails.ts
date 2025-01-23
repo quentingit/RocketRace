@@ -7,11 +7,8 @@ import { transformRaceData } from "./transformers";
 export const fetchRaceDetails = async (
   history: Race[]
 ): Promise<RaceEnriched[]> => {
-  console.log("race");
-
   const details = await Promise.all(
     history.map(async (race) => {
-      console.log("race", race);
       try {
         const { data } = await client.query({
           query: GET_RACE,
