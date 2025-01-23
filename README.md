@@ -1,4 +1,3 @@
-
 ## 🚀 RocketRace
 
 <table>
@@ -18,6 +17,8 @@
   <img src="./docs/accueil.gif" alt="Animation de la page d'accueil Rocket Race" width="100%">
 </p>
 
+<br/>
+
 ## 🌟 Ce que vous pouvez faire
 
 - **🎯 Sélectionnez vos fusées favorites**  
@@ -27,11 +28,12 @@
   Profitez d'une intégration directe avec le serveur **GraphQL** pour suivre l'évolution des courses en direct.
 
 - **🎮 Revivez l'excitation des jeux d'arcade**  
-  Plongez dans un univers où la nostalgie des **bornes d'arcade des années 80** est enrichie par des animations modernes et pixelisées.
+  Plongez dans un univers où la nostalgie des **bornes d'arcade des années 80** est enrichie par des animations modernes et pixelisées 🚀✨
+
+<br/><br/>
 
 ---
 
-Plongez dans l'univers de **RocketRace** : une expérience unique mêlant **magie rétro** et **puissance des technologies modernes**. 🚀✨
 
 ## 🎥 Preview
 
@@ -53,7 +55,10 @@ Plongez dans l'univers de **RocketRace** : une expérience unique mêlant **magi
   </table>
 </p>
 
-## **Stack technique**
+<br>
+<br>
+
+# 🔧 Stack Technique
 
 #### Développement Frontend
 - **Next.js** : Framework React pour le rendu côté serveur et les applications modernes.
@@ -78,7 +83,7 @@ Plongez dans l'univers de **RocketRace** : une expérience unique mêlant **magi
 - **Vercel** : Plateforme de déploiement continu pour héberger l'application et gérer automatiquement les changements.
 
 
----
+<br/>
 
 # 🗂️ Structure 
 
@@ -120,15 +125,28 @@ Alias dans `tsconfig.json` :
     ...
 }
 ```
+<br/><br/>
 
----
+
+
+# 🖥️ Les Écrans de l'Application 
+
+| **Écran**            | **Description**                                                                                                                                                                                                                                          |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Page d'Accueil**    | - Simule une télévision rétro avec un bouton “Allumer” (géré avec `sessionStorage` pour n'afficher qu'une seule fois).<br>- Une fois allumé, mène à l'écran principal.<br>- **Accès direct** : possibilité de se rendre à la page de sélection ou à l'historique. |
+| **Page de Sélection** | - Permet de **sélectionner deux fusées** parmi une liste récupérée via une **query GraphQL**.<br>- Affichage des fusées avec nom, image et description.<br>- **Gestion d’état** : Zustland stocke les fusées sélectionnées, prêtes pour le lancement.                                               |
+| **Page de Course**    | Affiche une course en **temps réel** avec suivi des positions grâce aux **GraphQL Subscriptions**.<br><br> **Deux modes d’accès possibles** :<br>  1. Depuis la page de sélection : les données sont récupérées via **Zustand**.<br>  2. Par une URL directe : les données sont récupérées via une **query GraphQL**.<br><br> **État de la course** :<br>  - **Course en cours** : progression en direct suivie de l’affichage des résultats (avec **query** et **subscriptions**).<br>  - **Course terminée** : affichage uniquement de l’écran de résultat (avec **query**).<br><br> **Gestion des résultats** :<br>  - Si une fusée atteint l’arrivée, elle est déclarée **gagnante**.<br>  - Si une fusée explose, l’adversaire est déclaré **gagnant**, avec un écran adapté. |                                                                                                       |
+| **Page d’Historique** | - Liste toutes les courses effectuées avec détails sur les fusées participantes.<br>- Indique si la course est terminée ou toujours en cours.<br>       |
+
+
+<br/><br/>
 
 
 # 🚀 Gestion de la Persistance des Données
 
 Dans **RocketRace**, la persistance des données est un enjeu majeur pour garantir une expérience fluide, que ce soit pour les courses, l'écran d'accueil, ou l'historique. Voici les choix techniques adoptés pour gérer ces aspects.
 
----
+
 
 ## **1. Gestion des Données de Course avec Zustand**
 
@@ -220,5 +238,176 @@ const handleOverlayClose = () => {
   }, 2000); // Durée de l'animation
 };
 
+```
+
+<br/><br/>
+
+# 🌐 Gestion Données : Intégration GraphQL & Transformation Données
+<br/>
+
+## **📡 Interaction avec GraphQL**
+
+- Les données de l'application, comme les informations sur les courses et les fusées, sont récupérées via des **queries** et mises à jour en temps réel grâce aux **subscriptions**.
+- Les mutations permettent d'envoyer des actions spécifiques, comme lancer une course.
+ 
+
+### 1️⃣ **Subscriptions** : Suivi en temps réel des fusées
+
+Les **subscriptions** permettent de suivre en direct la progression et l'état des fusées lors de la course. Elles ne sont activées que si toutes les informations nécessaires sont déjà disponibles (par exemple, si l'utilisateur vient de la page de sélection).
+
+```typescript
+// GQL: subscription pour la progression de la fusée 1
+const { data: rocket1Progress } = useSubscription(ROCKET_PROGRESS, {
+  variables: { raceId: raceData?.id, rocketId: raceData?.rocket1?.id },
+  skip: !raceData || !raceData.rocket1 || Boolean(raceData?.winner), // Pas de subscription si les données sont manquantes ou si un vainqueur est déjà déclaré
+});
+
+// GQL: subscription pour la progression de la fusée 2
+const { data: rocket2Progress } = useSubscription(ROCKET_PROGRESS, {
+  variables: { raceId: raceData?.id, rocketId: raceData?.rocket2?.id },
+  skip: !raceData || !raceData.rocket2 || Boolean(raceData?.winner), // Même logique que pour la fusée 1
+});
+```
+
+**Conditions pour activer les subscriptions**
+
+- Les informations sur la course (**raceData**) doivent déjà être disponibles.
+- Un vainqueur ne doit pas être déclaré (pas de besoin de suivi si la course est terminée).
+- Si l’utilisateur arrive sur la page via une **URL directe** (par exemple `/race/4b116ca6-4cbe-490c-a0ad-5c9be63fa326`), les **subscriptions** ne sont pas utilisées immédiatement, car les informations sur la course doivent d’abord être récupérées via des **queries**.
+
+
+### 2️⃣ Queries : Récupération initiale des données
+
+- Lorsque l’utilisateur arrive sur la page via une **URL directe** (et non via l’écran de sélection), les informations nécessaires sur la course et les fusées doivent être récupérées à l’aide de **queries**.
+  
+```typescript
+// GQL: récupérer les informations de la course
+const {
+  loading: loadingRace,
+  error: raceError,
+  data: fetchedRaceData,
+} = useQuery(GET_RACE, {
+  variables: { raceId }, // ID de la course
+  fetchPolicy: "network-only", // Force un rafraîchissement des données, car elles changent rapidement pendant la course
+  skip: !raceId, // Ne lance pas la requête si l'ID de la course n'est pas disponible
+});
+
+// GQL: récupérer les informations sur les fusées
+const { loading: loadingRockets, data: rocketsData } = useQuery(GET_ROCKETS, {
+  skip: !!raceData, // on active la requete si on a pas les données de courses
+});
+```
+
+<br/><br/>
+
+
+## **🔄 Transformation des Données**
+
+- Les données brutes récupérées via l'API GraphQL sont transformées pour être compatibles avec le format attendu par l'application.
+- Une gestion claire des transformations garantit que l'interface utilisateur affiche toujours des données cohérentes et bien structurées.
+- **Exemple :** La transformation des informations des fusées et des courses est effectuée à l'aide de fonctions spécifiques pour enrichir ou filtrer les données nécessaires.
+
+
+### Hook Personnalisé : useRaceData
+
+le  hook useRaceManager gère la récupération et la transformation des données de course et les enregistre dans Zustand.
+
+```typescript
+
+
+
+  const raceData = useRaceStore((state) => state.raceData);
+  const setRaceData = useRaceStore((state) => state.setRaceData);
+  ...
+  useEffect(() => {
+    // Si les données de course ne sont pas encore disponibles, les transformer
+   // fetchedRaceData : Données brutes récupérées via GraphQL sur la course.
+   // rocketsData :  Liste complète des fusées disponibles récupérée via GraphQL
+    if (!raceData && fetchedRaceData?.race && rocketsData) {
+      const { race: fetchedRace } = fetchedRaceData;
+
+      // Transformation des données brutes en données enrichies
+      const transformedRace = transformDetailedRaceData(
+        fetchedRace,
+        fetchedRaceData,
+        rocketsData.rockets
+      );
+
+      // Si la transformation a réussi, mettre à jour Zustand
+      if (transformedRace) {
+        setRaceData(transformedRace);
+      }
+    }
+  }, [raceData, fetchedRaceData, rocketsData, setRaceData]);
+  ...
+};
+```
+
+
+### Fonctions de Transformation
+
+Ces fonctions restent dans des fichiers distincts, par exemple dans `src/services/transformers/transformDetailedRaceData.tsx`.
+
+---
+
+### **1. Transformation des Données d’une Course**
+
+
+```typescript
+/**
+ * Transforme les données d'une course pour enrichir les informations des fusées.
+ *
+ * @param race - Données principales de la course.
+ * @param fetchedData - Données supplémentaires récupérées via GraphQL.
+ * @param rockets - Liste complète des fusées disponibles.
+ * @returns Données enrichies de la course ou `null` si les fusées sont invalides.
+ */
+export const transformDetailedRaceData = (
+  race: Race,
+  fetchedData: FetchedRaceData,
+  rockets: Rocket[]
+): RaceEnriched | null => {
+  const getRocketDetails = (rocketId: string): Rocket | null =>
+    rockets.find((rocket) => rocket.id === rocketId) || null;
+
+  const rocket1Details = getRocketDetails(race.rocket1.id);
+  const rocket2Details = getRocketDetails(race.rocket2.id);
+
+  if (rocket1Details && rocket2Details) {
+    return {
+      id: race.id,
+      rocket1: transformRocketData(rocket1Details, fetchedData.race?.rocket1),
+      rocket2: transformRocketData(rocket2Details, fetchedData.race?.rocket2),
+      winner: fetchedData.race?.winner || null,
+    };
+  }
+
+  return null;
+};
+```
+
+
+### **2. Transformation des Données d’une Fusée**
+
+
+
+```typescript
+/**
+ * Transforme les données d'une fusée en enrichissant ses informations avec des données supplémentaires.
+ *
+ * @param rocket - Données principales de la fusée (ID, nom, image).
+ * @param fetchedRocketData - Données supplémentaires récupérées (progression, explosion).
+ * @returns Données enrichies de la fusée.
+ */
+export const transformRocketData = (
+  rocket: Rocket,
+  fetchedRocketData?: { exploded?: boolean | null; progress?: number | null }
+) => ({
+  id: rocket.id,
+  name: rocket.name,
+  image: rocket.image,
+  exploded: fetchedRocketData?.exploded || null,
+  progress: fetchedRocketData?.progress || null,
+});
 ```
 
