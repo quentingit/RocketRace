@@ -124,6 +124,101 @@ Alias dans `tsconfig.json` :
 ---
 
 
+# 🚀 Gestion de la Persistance des Données
+
+Dans **RocketRace**, la persistance des données est un enjeu majeur pour garantir une expérience fluide, que ce soit pour les courses, l'écran d'accueil, ou l'historique. Voici les choix techniques adoptés pour gérer ces aspects.
+
+---
+
+## **1. Gestion des Données de Course avec Zustand**
+
+### Contexte
+Initialement, un **Context** React a été utilisé pour gérer la persistance des données entre la sélection des deux vaisseaux et le lancement de la course sur une nouvelle page. Cependant, cette approche ne permettait pas de **recharger la page** sans perdre les données, ce qui nuisait à l'expérience utilisateur.
+
+### Solution
+L'utilisation de **Zustand** a été choisie comme alternative légère à Redux pour une gestion efficace et simple de l'état global. Avec l'ajout de la **middleware persist**, les données sont automatiquement sauvegardées dans le **localStorage**, permettant ainsi de :
+- Maintenir la persistance des données en cas de rechargement de page.
+- Offrir une configuration minimale sans la complexité d'autres outils comme Redux.
+
+### Exemple de Code avec Zustand
+Voici un exemple de gestion des données d'une course avec **Zustand** et la middleware **persist** :
+
+```typescript
+import { RaceEnriched } from "src/types/enriched";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+type RaceStore = {
+  raceData: RaceEnriched | null;
+  setRaceData: (data: RaceEnriched | null) => void;
+  resetRaceData: () => void;
+};
+
+const useRaceStore = create<RaceStore>()(
+  persist(
+    (set) => ({
+      raceData: null as RaceEnriched | null,
+      setRaceData: (data: RaceEnriched | null) => set({ raceData: data }),
+      resetRaceData: () => set({ raceData: null }),
+    }),
+    {
+      name: "race-storage", // Clé utilisée dans le localStorage
+    }
+  )
+);
+
+export default useRaceStore;
+```
+
+Dans un composant, l’utilisation est simple :
 
 
+```typescript
+const raceData = useRaceStore((state) => state.raceData);
+const setRaceData = useRaceStore((state) => state.setRaceData);
+const resetRaceData = useRaceStore((state) => state.resetRaceData);
+```
+
+## 2. Gestion de l’Historique des Courses
+
+### Contexte
+Au départ, l’historique des courses (tableau de scores) était stocké dans le **localStorage**. Cependant, avec l’introduction de **Zustand**, j'ai décidé d’utiliser le même store pour centraliser la gestion de ces données.
+
+### Solution avec Zustand
+En utilisant **Zustand** avec la middleware **persist**, l’historique est sauvegardé de manière persistante et accessible en permanence. Cela permet de :
+- Centraliser la logique d’état global pour une meilleure maintenabilité.
+- Réduire la dépendance à des appels directs au **localStorage**.
+- Simplifier la gestion des données à travers l'application.
+
+## 3. Gestion de l’Écran d’Accueil avec Session Storage
+
+### Contexte
+L’écran d’accueil, représentant une télévision rétro avec un bouton **“Allumer”**, nécessite une persistance limitée au **cycle de vie de l’onglet**. Il est essentiel que cet écran ne s’affiche qu’une seule fois par onglet, même si l’utilisateur revient sur la page d’accueil.
+
+### Solution
+Le **sessionStorage** a été utilisé pour répondre à ces besoins spécifiques, car il permet de :
+- **Persister des données uniquement pour l’onglet en cours.**
+- **Supprimer les données dès que l’onglet est fermé.**
+
+Grâce à cette approche, l’écran d’accueil ne réapparaît pas après avoir été vu une fois, offrant une expérience utilisateur fluide et immersive.
+
+```typescript
+useEffect(() => {
+  const hasSeenOverlay = sessionStorage.getItem("hasSeenOverlay");
+  if (!hasSeenOverlay) {
+    setShowOverlay(true);
+  } else {
+    setShowOverlay(false);
+  }
+}, []);
+
+const handleOverlayClose = () => {
+  setIsPoweringOn(true); // Animation d'allumage
+  setTimeout(() => {
+    setShowOverlay(false);
+    sessionStorage.setItem("hasSeenOverlay", "true"); // Marquer comme vu
+  }, 2000); // Durée de l'animation
+};
+
+```
 
