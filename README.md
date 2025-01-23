@@ -78,6 +78,52 @@ Plongez dans l'univers de **RocketRace** : une expérience unique mêlant **magi
 - **Vercel** : Plateforme de déploiement continu pour héberger l'application et gérer automatiquement les changements.
 
 
+---
+
+# 🗂️ Structure 
+
+ <img src="./docs/arborescence.png" alt="Arborescence RocketRace" style="width: 30%;">
+
+
+| **Dossier**     | **Description**                                                                                      |
+|------------------|--------------------------------------------------------------------------------------------------|
+| `app/`           | Contient la structure des pages principales de l'application, avec des routes dynamiques (par exemple, `/race/[id]`). Inclut les sous-répertoires pour les fonctionnalités comme l'`historique` et la `sélection`. |
+| `components/`    | Regroupe tous les composants réutilisables, tels que `Header`, `Footer`, `RocketCard`, et des éléments spécifiques comme `RaceItem` ou `WinnerMessage`. Chaque composant est organisé dans son propre dossier. |
+| `graphql/`       | Centralise les requêtes GraphQL (`queries.ts`), mutations (`mutations.ts`) et abonnements (`subscriptions.ts`) pour interagir avec l'API GraphQL de manière structurée. |
+| `hooks/`         | Contient des hooks personnalisés pour encapsuler des logiques spécifiques, comme `useRocketSelection` pour la gestion des fusées ou `useRaceManager` pour la gestion des courses. |
+| `lib/`           | Comprend des configurations globales comme `apollo-client.ts` pour Apollo GraphQL et des stores Zustand (`useRaceStore.ts`, `useRaceHistoryStore.ts`). |
+| `services/`      | Inclut la logique métier, comme la transformation des données (`transformers/`) et la gestion des appels API (`fetchRaceDetails.ts`). Structure le code pour une séparation claire des responsabilités. |
+| `styles/`        | Regroupe les styles globaux (via `globals.css`) pour définir les thèmes et les classes communes, avec une intégration de TailwindCSS. |
+| `types/`         | Déclare les types TypeScript, avec des fichiers comme `graphql.ts` (types pour les données GraphQL) et `enriched.ts` (types enrichis pour les données manipulées dans l'application). |
+| `utils/`         | Contient des utilitaires spécifiques, comme `buttonStyles.ts`, pour centraliser les styles ou les helpers partagés. |
+
+
+
+L'utilisation des alias dans le fichier `tsconfig.json` permet un **accès rapide et organisé** aux différents dossiers.
+
+
+Alias dans `tsconfig.json` :
+
+```json
+{
+  "compilerOptions": {
+    ...
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@graphql/*": ["src/graphql/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@lib/*": ["src/lib/*"],
+      "@services/*": ["src/services/*"],
+      "@types/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+    ...
+}
+```
+
+---
+
+
 
 
 
