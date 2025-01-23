@@ -17,7 +17,7 @@ export default {
         "slide-up": "slideUp 1s ease-out forwards",
         floating: "floating 3s ease-in-out infinite",
         "gradient-move": "gradientMove 6s ease infinite",
-        "rocket-launch": "rocketLaunch 1.5s ease-in forwards",
+        "rocket-launch": "rocketLaunch 0.3s ease-in forwards",
         shake: "shake 0.5s ease-in-out infinite",
         stars: "moveStars 200s linear infinite",
       },

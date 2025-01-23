@@ -1,4 +1,3 @@
-// lib/apolloClient.js
 import {
   ApolloClient,
   InMemoryCache,
@@ -12,13 +11,7 @@ import { getMainDefinition, Observable } from "@apollo/client/utilities";
 import { createClient } from "graphql-ws";
 import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
-//import createTimeoutLink from "./links/timeoutLink"; // Import du TimeoutLink personnalisé
 
-/**
- * Crée un lien Apollo qui échoue si la requête dépasse le délai spécifié.
- * @param {number} timeout - Délai en millisecondes avant de déclencher un timeout.
- * @returns {ApolloLink}
- */
 const createTimeoutLink = (timeout = 5000) => {
   return new ApolloLink((operation, forward) => {
     return new Observable((observer) => {
@@ -41,7 +34,6 @@ const createTimeoutLink = (timeout = 5000) => {
         },
       });
 
-      // Nettoyage en cas de désabonnement
       return () => {
         clearTimeout(timeoutId);
         if (subscription) subscription.unsubscribe();
@@ -54,7 +46,7 @@ const createTimeoutLink = (timeout = 5000) => {
 const retryLink = new RetryLink({
   attempts: {
     max: 2, // Nombre maximum de tentatives
-    retryIf: (error, _operation) => {
+    retryIf: (error) => {
       console.warn(`[Apollo Retry] Retrying due to error:`, error);
       return !!error;
     },

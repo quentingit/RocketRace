@@ -7,7 +7,6 @@ import LoadingIndicator from "@components/common/LoadingIndicator/LoadingIndicat
 import ErrorHandler from "@components/common/ErrorHandler/ErrorHandler";
 import clsx from "clsx";
 import InfoPanel from "@components/InfoPanel/InfoPanel";
-import { Metadata, ResolvingMetadata } from "next";
 
 const getLaunchButtonClasses = (isDisabled: boolean): string =>
   clsx(

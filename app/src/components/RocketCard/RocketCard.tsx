@@ -16,7 +16,6 @@ const RocketCard: React.FC<RocketCardProps> = ({
   launching,
   onToggleSelection,
 }) => {
-  // Classes conditionnelles
   const rocketClass = clsx(
     "relative border-4 rounded-lg p-4 shadow-lg text-center bg-black bg-opacity-75 text-white cursor-pointer transition-transform transform hover:scale-105",
     isSelected ? "neon-border-green" : "neon-border-blue",

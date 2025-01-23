@@ -10,7 +10,6 @@ import WinnerMessage from "@components/WinnerMessage/WinnerMessage";
 import useRaceManager from "@hooks/useRaceManager";
 import ErrorHandler from "@components/common/ErrorHandler/ErrorHandler";
 import LoadingIndicator from "@components/common/LoadingIndicator/LoadingIndicator";
-import { NextSeo } from "next-seo";
 
 const Race = () => {
   const {
@@ -63,57 +62,51 @@ const Race = () => {
   }
 
   return (
-    <>
-      <NextSeo
-        title={`RocketRace - Course ${raceData.id} `}
-        description={`Découvrez la course ${raceData.rocket1.name} et ${raceData.rocket2.name}`}
-      />
-      <div
-        className={clsx(
-          "relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-gray-900 to-black text-white bg-stars animate-stars",
-          !winner && "glitch-bg"
-        )}
-      >
-        <div className="absolute inset-0 bg-stars animate-stars"></div>
-        {winner && (
-          <WinnerMessage
-            winner={winner}
-            width={width}
-            height={height}
-            raceData={raceData}
-            router={router}
-            rocketNameExploded={rocketNameExploded}
-          />
-        )}
+    <div
+      className={clsx(
+        "relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-gray-900 to-black text-white bg-stars animate-stars",
+        !winner && "glitch-bg"
+      )}
+    >
+      <div className="absolute inset-0 bg-stars animate-stars"></div>
+      {winner && (
+        <WinnerMessage
+          winner={winner}
+          width={width}
+          height={height}
+          raceData={raceData}
+          router={router}
+          rocketNameExploded={rocketNameExploded}
+        />
+      )}
 
-        {winner && <Confetti width={width} height={height} />}
+      {winner && <Confetti width={width} height={height} />}
 
-        <h1 className="absolute top-10 left-1/2 transform -translate-x-1/2 text-4xl md:text-5xl font-pixel text-neon-green animate-crt-flicker z-10">
-          Suivi de la course
-        </h1>
+      <h1 className="absolute top-10 left-1/2 transform -translate-x-1/2 text-4xl md:text-5xl font-pixel text-neon-green animate-crt-flicker z-10">
+        Suivi de la course
+      </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-6xl z-10">
-          <RocketBox
-            rocketData={raceData.rocket1}
-            rocketExploded={rocket1Exploded}
-            isLeading={isRocket1Leading}
-            borderColorClass="border-blue-500 neon-border-green"
-            rocketColorClass="neon-rocket-green"
-            textColorClass="text-neon-green"
-            progress={rocketProgress1}
-          />
-          <RocketBox
-            rocketData={raceData.rocket2}
-            rocketExploded={rocket2Exploded}
-            isLeading={!isRocket1Leading}
-            borderColorClass="border-red-500 neon-border-blue"
-            rocketColorClass="neon-rocket-blue"
-            textColorClass="text-neon-blue"
-            progress={rocketProgress2}
-          />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-6xl z-10">
+        <RocketBox
+          rocketData={raceData.rocket1}
+          rocketExploded={rocket1Exploded}
+          isLeading={isRocket1Leading}
+          borderColorClass="border-blue-500 neon-border-green"
+          rocketColorClass="neon-rocket-green"
+          textColorClass="text-neon-green"
+          progress={rocketProgress1}
+        />
+        <RocketBox
+          rocketData={raceData.rocket2}
+          rocketExploded={rocket2Exploded}
+          isLeading={!isRocket1Leading}
+          borderColorClass="border-red-500 neon-border-blue"
+          rocketColorClass="neon-rocket-blue"
+          textColorClass="text-neon-blue"
+          progress={rocketProgress2}
+        />
       </div>
-    </>
+    </div>
   );
 };
 

@@ -3,9 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRocketGameHome } from "@hooks/useRocketGameHome";
-import { DefaultSeo } from "next-seo";
-import defaultSEOConfig from "../next-seo.config";
-import DefaultSeoWrapper from "@components/SeoComponent/SeoComponent";
 
 const Home = () => {
   const shipCount = 8;
@@ -45,7 +42,6 @@ const Home = () => {
             {/* Effet de lignes cathodiques */}
             <div className="absolute inset-0 bg-stripes opacity-25 pointer-events-none"></div>
 
-            {/* Texte de bienvenue */}
             {!isPoweringOn && (
               <button
                 onClick={handleOverlayClose}
@@ -65,12 +61,10 @@ const Home = () => {
               {renderedShips}
             </div>
 
-            {/* Titre de l'application */}
             <h1 className="text-5xl mb-10 md:text-6xl font-extrabold animate-pulse text-neon-blue z-10 tracking-widest animate-crt-flicker">
               🚀 Rocket Race
             </h1>
 
-            {/* Description */}
             <p className="text-lg mb-20 md:text-xl text-center max-w-2xl animate-slide-up z-10 text-neon-green tracking-wider animate-crt-flicker">
               Bienvenue dans{" "}
               <span className="text-neon-yellow">Rocket Race</span> !
@@ -78,7 +72,6 @@ const Home = () => {
               réel.
             </p>
 
-            {/* Boutons d'action */}
             <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-6 z-10 animate-crt-flicker">
               <Link
                 href="/selection"

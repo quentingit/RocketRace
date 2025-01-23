@@ -11,9 +11,9 @@ import { Rocket } from "@types/graphql";
 
 type UseRocketSelectionResult = {
   loading: boolean;
-  error: ApolloError | null;
+  error?: ApolloError;
   rockets: RocketInteraction[];
-  refetch: () => Promise<any>;
+  refetch: () => Promise<Rocket[]>;
   selectedRockets: RocketInteraction[];
   selectedRocketNames: string;
   toggleRocketSelection: (rocket: RocketInteraction) => void;
@@ -48,30 +48,31 @@ export const useRocketSelection = (): UseRocketSelectionResult => {
 
     setLaunching(true);
 
-    try {
-      const { data } = await startRace({
-        variables: {
-          rocket1: selectedRockets[0].id,
-          rocket2: selectedRockets[1].id,
-        },
-      });
+    setTimeout(async () => {
+      try {
+        const { data } = await startRace({
+          variables: {
+            rocket1: selectedRockets[0].id,
+            rocket2: selectedRockets[1].id,
+          },
+        });
 
-      const newRace = {
-        id: data.startRace.id,
-        rocket1: selectedRockets[0],
-        rocket2: selectedRockets[1],
-      };
+        const newRace = {
+          id: data.startRace.id,
+          rocket1: selectedRockets[0],
+          rocket2: selectedRockets[1],
+        };
 
-      addRace(newRace);
-      setRaceData(newRace);
+        addRace(newRace);
+        setRaceData(newRace);
 
-      router.push(`/race/${data.startRace.id}`);
-    } catch (err) {
-      console.error(err);
-      alert("Erreur lors du lancement de la course !");
-    } finally {
-      setLaunching(false);
-    }
+        router.push(`/race/${data.startRace.id}`);
+      } catch (err) {
+        console.error(err);
+        alert("Erreur lors du lancement de la course !");
+      } finally {
+      }
+    }, 300);
   };
 
   const selectedRocketNames = selectedRockets

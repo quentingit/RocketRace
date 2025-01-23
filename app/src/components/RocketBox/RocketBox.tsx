@@ -1,6 +1,7 @@
 import Image from "next/image";
 import clsx from "clsx";
 import { RocketInteraction } from "@types/graphql";
+import Asteroids from "../Asteroids/Asteroids";
 
 type RocketBoxProps = {
   rocketData?: RocketInteraction;
@@ -27,6 +28,12 @@ const RocketBox = ({
     !rocketExploded && "bg-stars animate-stars-speed",
     borderColorClass
   );
+  const imageClasses = clsx(
+    rocketColorClass,
+    "relative mx-auto object-cover transition-transform duration-300 z-10",
+    rocketExploded ? "opacity-50 scale-75" : "scale-100",
+    !rocketExploded && "animate-shake"
+  );
 
   const leadingBadge = isLeading ? (
     <div
@@ -39,13 +46,6 @@ const RocketBox = ({
     </div>
   ) : null;
 
-  const imageClasses = clsx(
-    rocketColorClass,
-    "relative mx-auto object-cover transition-transform duration-300 z-10",
-    rocketExploded ? "opacity-50 scale-75" : "scale-100",
-    !rocketExploded && "animate-shake"
-  );
-
   const fireOrExplosion = !rocketExploded ? (
     <>
       <div className="absolute bottom-[-20px] left-1/2 transform -translate-x-1/2 z-5 rocket-fire"></div>
@@ -57,6 +57,8 @@ const RocketBox = ({
 
   return (
     <div className={containerClasses}>
+      <Asteroids />
+
       {leadingBadge}
       <div className="relative">
         <Image
