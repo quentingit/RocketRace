@@ -2,7 +2,7 @@ import { useQuery, useSubscription } from "@apollo/client";
 
 import { transformDetailedRaceData } from "src/transformers";
 
-import { RaceEnriched } from "@types/enrichedTypes";
+import { RaceEnriched } from "@appTypes/enrichedTypes";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import {

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import clsx from "clsx";
-import { RocketInteraction } from "@types/enrichedTypes";
+import { RocketInteraction } from "@appTypes/enrichedTypes";
 import Asteroids from "../Asteroids/Asteroids";
 
 type RocketBoxProps = {

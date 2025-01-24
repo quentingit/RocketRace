@@ -1,5 +1,5 @@
 import { transformRocketData } from "./transformRocketData";
-import { RaceEnriched, RocketInteraction } from "@types/enrichedTypes";
+import { RaceEnriched, RocketInteraction } from "@appTypes/enrichedTypes";
 import { GetRaceQuery, Race } from "src/__generated__/graphql";
 
 /**

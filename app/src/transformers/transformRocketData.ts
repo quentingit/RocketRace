@@ -1,4 +1,4 @@
-import { RocketInteraction } from "@types/enrichedTypes";
+import { RocketInteraction } from "@appTypes/enrichedTypes";
 import { Rocket } from "src/__generated__/graphql";
 
 /**

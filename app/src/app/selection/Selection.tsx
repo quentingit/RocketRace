@@ -1,6 +1,6 @@
 "use client";
 
-import { RocketInteraction } from "@types/enrichedTypes";
+import { RocketInteraction } from "@appTypes/enrichedTypes";
 import LoadingIndicator from "@components/LoadingIndicator/LoadingIndicator";
 import ErrorHandler from "@components/ErrorHandler/ErrorHandler";
 import clsx from "clsx";

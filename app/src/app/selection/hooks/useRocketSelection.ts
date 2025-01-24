@@ -14,7 +14,7 @@ import {
   StartRaceMutation,
   StartRaceMutationVariables,
 } from "src/__generated__/graphql";
-import { RaceEnriched, RocketInteraction } from "@types/enrichedTypes";
+import { RaceEnriched, RocketInteraction } from "@appTypes/enrichedTypes";
 
 type UseRocketSelectionResult = {
   loading: boolean;

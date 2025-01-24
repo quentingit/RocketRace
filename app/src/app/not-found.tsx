@@ -10,14 +10,14 @@ const NotFoundPage = () => (
     </h1>
 
     <p className="mb-6 font-pixel text-neon-blue text-center">
-      Oups ! La page que vous recherchez n'existe pas ou a été déplacée.
+      Oups ! La page que vous recherchez n&apos;existe pas ou a été déplacée.
     </p>
 
     <Link
       href="/"
       className="px-6 py-3 font-pixel text-white bg-gradient-to-r from-neon-blue to-neon-green neon-border-green shadow-neon hover:scale-110 transition-transform animate-pulse"
     >
-      Retour à l'accueil
+      Retour à l&apos;accueil
     </Link>
   </div>
 );

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import clsx from "clsx";
-import { RocketInteraction } from "@types/enrichedTypes";
+import { RocketInteraction } from "@appTypes/enrichedTypes";
 
 interface RocketCardProps {
   rocket: RocketInteraction;

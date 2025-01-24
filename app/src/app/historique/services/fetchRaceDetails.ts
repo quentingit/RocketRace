@@ -6,7 +6,7 @@ import {
   GetRaceQueryVariables,
   Race,
 } from "src/__generated__/graphql";
-import { RaceEnriched } from "@types/enrichedTypes";
+import { RaceEnriched } from "@appTypes/enrichedTypes";
 
 // Fonction pour récupérer les détails des courses
 export const fetchRaceDetails = async (

@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Race } from "src/__generated__/graphql";
-import { RocketInteraction } from "@types/enrichedTypes";
+import { RocketInteraction } from "@appTypes/enrichedTypes";
 
 const getWinnerName = (
   winnerId: string | null | undefined,

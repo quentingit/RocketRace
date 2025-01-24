@@ -23,12 +23,12 @@ export default {
       },
       keyframes: {
         fadeIn: {
-          "0%": { opacity: 0 },
-          "100%": { opacity: 1 },
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
         slideUp: {
-          "0%": { transform: "translateY(50px)", opacity: 0 },
-          "100%": { transform: "translateY(0)", opacity: 1 },
+          "0%": { transform: "translateY(50px)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
         },
         floating: {
           "0%, 100%": { transform: "translateY(0)" },
@@ -40,8 +40,8 @@ export default {
           "100%": { backgroundPosition: "0% 50%" },
         },
         rocketLaunch: {
-          "0%": { transform: "translateY(0)", opacity: 1 },
-          "100%": { transform: "translateY(-200%)", opacity: 0 },
+          "0%": { transform: "translateY(0)", opacity: "1" },
+          "100%": { transform: "translateY(-200%)", opacity: "0" },
         },
         shake: {
           "0%, 100%": { transform: "translateX(0)" },

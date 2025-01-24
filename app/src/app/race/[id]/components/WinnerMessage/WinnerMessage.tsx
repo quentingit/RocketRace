@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Confetti from "react-confetti";
-import { RaceEnriched } from "@types/enrichedTypes";
+import { RaceEnriched } from "@appTypes/enrichedTypes";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 type WinnerMessageProps = {
