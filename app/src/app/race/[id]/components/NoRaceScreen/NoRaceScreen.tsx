@@ -1,30 +1,31 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 
 const NoRaceScreen = () => {
   const router = useRouter();
+
   return (
-    <div className="bg-stars animate-stars  flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white font-pixel space-y-4">
-      <p className="text-xl text-center px-4 mb-10">
-        Votre course n&apos;existe pas dans ce système solaire !
+    <div className="bg-stars animate-stars flex flex-col items-center justify-center min-h-screen bg-black text-neon-red font-pixel space-y-8">
+      <h1 className="text-4xl text-neon-yellow animate-crt-flicker">
+        Pas de Course Trouvée !
+      </h1>
+
+      <p className="text-xl text-center px-6 text-neon-blue animate-slide-up">
+        La course que vous cherchez n&apos;existe pas dans ce système solaire !
       </p>
 
       <div className="flex space-x-4">
         <button
           onClick={() => router.push("/")}
           className={clsx(
-            "px-6 py-3 bg-neon-blue text-white rounded-md shadow-neon transition-transform hover:scale-105"
+            "px-8 py-4 bg-gradient-to-r from-neon-blue to-neon-green text-white rounded-md shadow-neon font-bold hover:scale-110 transition-transform duration-300"
           )}
         >
-          Accueil
+          🚀 Retour à l&apos;Accueil
         </button>
       </div>
-      <p className="mt-10 text-sm italic text-center text-gray-400 p-20">
-        P.S. Si vous avez déjà commencé une course, veuillez patienter
-        jusqu&apos;à sa fin. Sachez qu&apos;une course peut prendre jusqu’à 30
-        secondes.
-      </p>
     </div>
   );
 };

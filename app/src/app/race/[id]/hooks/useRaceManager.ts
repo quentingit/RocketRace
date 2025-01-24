@@ -60,6 +60,14 @@ const useRaceManager = (): UseRaceManagerResult => {
     skip: !!raceData,
   });
 
+  //si la course existe
+  useEffect(() => {
+    if (raceData?.id !== raceId) {
+      resetRaceData();
+      refetchRace();
+    }
+  }, [raceData?.id, raceId, resetRaceData, refetchRace]);
+
   //si la course a bien été finie
   useEffect(() => {
     if (!resetDone && fetchedRaceData?.race?.id) {
