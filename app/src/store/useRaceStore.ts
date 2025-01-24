@@ -1,4 +1,4 @@
-import { RaceEnriched } from "src/types/enriched";
+import { RaceEnriched } from "@appTypes/enrichedTypes";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

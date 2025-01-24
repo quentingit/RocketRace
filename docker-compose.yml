@@ -1,4 +1,23 @@
 services:
+  # Next.js container
+  next-app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    networks:
+      default:
+        aliases:
+          - nextjs
+    working_dir: /app
+    environment:
+      NODE_ENV: production
+    command: ["sh", "-c", "npm install && npm run start"]
+
   # Node container
   graphql-node:
     build:
