@@ -29,6 +29,11 @@ const useRaceManager = (): UseRaceManagerResult => {
   const setRaceData = useRaceStore((state) => state.setRaceData);
   const resetRaceData = useRaceStore((state) => state.resetRaceData);
 
+  const [subscriptionState, setSubscriptionState] = useState({
+    date: Date.now(),
+    count: 0,
+  });
+
   const [resetDone, setResetDone] = useState(false); // Suivi du reset effectué
   // param
   const { id: raceId } = useParams();
@@ -85,12 +90,45 @@ const useRaceManager = (): UseRaceManagerResult => {
   const { data: rocket1Progress } = useSubscription(ROCKET_PROGRESS, {
     variables: { raceId: raceData?.id, rocketId: raceData?.rocket1?.id },
     skip: !raceData || !raceData.rocket1 || Boolean(raceData?.winner),
+    onSubscriptionData: () => {
+      setSubscriptionState((prevState) => ({
+        date: Date.now(),
+        count: prevState.count + 1,
+      }));
+    },
   });
 
   const { data: rocket2Progress } = useSubscription(ROCKET_PROGRESS, {
     variables: { raceId: raceData?.id, rocketId: raceData?.rocket2?.id },
     skip: !raceData || !raceData.rocket2 || Boolean(raceData?.winner),
+    onSubscriptionData: () => {
+      setSubscriptionState((prevState) => ({
+        date: Date.now(),
+        count: prevState.count + 1,
+      }));
+    },
   });
+
+  // Si l'utilisateur vient de la page de sélection et que les subscriptions sont déjà terminées
+  // on recharge les données pour afficher le résultat
+  useEffect(() => {
+    if (!raceData) return;
+
+    const intervalId = setInterval(() => {
+      const now = Date.now();
+      if (
+        now - subscriptionState.date > 2000 &&
+        subscriptionState.count === 0
+      ) {
+        refetchRace();
+        clearInterval(intervalId);
+      }
+    }, 2000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [subscriptionState, refetchRace, raceData]);
 
   // var : progression et état fusées
   const rocketProgress1 =
