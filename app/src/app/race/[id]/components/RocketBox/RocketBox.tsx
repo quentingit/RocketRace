@@ -1,6 +1,6 @@
 import Image from "next/image";
 import clsx from "clsx";
-import { RocketInteraction } from "@types/graphql";
+import { RocketInteraction } from "@types/enriched";
 import Asteroids from "../Asteroids/Asteroids";
 
 type RocketBoxProps = {

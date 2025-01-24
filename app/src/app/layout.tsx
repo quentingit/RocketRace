@@ -1,10 +1,10 @@
 import "./globals.css";
 import Header from "@components/Header/Header";
 import Footer from "@components/Footer/Footer";
-import ClientApolloProvider from "./ClientApolloProvider";
 import { generateMetadata as baseGenerateMetadata } from "./metadata";
 import { Metadata } from "next";
-import AudioPlayer from "./AudioPlayer";
+import AudioPlayer from "@components/AudioPlayer/AudioPlayer";
+import ClientApolloProvider from "@providers/ClientApolloProvider";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return baseGenerateMetadata();

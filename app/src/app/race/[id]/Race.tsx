@@ -4,12 +4,12 @@ import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import Confetti from "react-confetti";
 import useWindowSize from "@hooks/useWindowSize";
-import NoRaceScreen from "@components/NoRaceScreen/NoRaceScreen";
-import RocketBox from "@components/RocketBox/RocketBox";
-import WinnerMessage from "@components/WinnerMessage/WinnerMessage";
-import useRaceManager from "@hooks/useRaceManager";
-import ErrorHandler from "@components/common/ErrorHandler/ErrorHandler";
-import LoadingIndicator from "@components/common/LoadingIndicator/LoadingIndicator";
+import ErrorHandler from "@components/ErrorHandler/ErrorHandler";
+import LoadingIndicator from "@components/LoadingIndicator/LoadingIndicator";
+import useRaceManager from "./hooks/useRaceManager";
+import NoRaceScreen from "./components/NoRaceScreen/NoRaceScreen";
+import WinnerMessage from "./components/WinnerMessage/WinnerMessage";
+import RocketBox from "./components/RocketBox/RocketBox";
 
 const Race = () => {
   const {

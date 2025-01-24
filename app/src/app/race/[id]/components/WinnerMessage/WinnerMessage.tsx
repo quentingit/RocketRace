@@ -54,8 +54,8 @@ const WinnerMessage = ({
             : raceData?.rocket2?.image
         }
         alt={`Vaisseau gagnant - ${winner}`}
-        width={300}
-        height={300}
+        width={200}
+        height={200}
         className="object-cover rounded-md neon-rocket-yellow shadow-lg transition-transform duration-500 hover:scale-110"
       />
       <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-neon-yellow px-4 py-1 rounded-md shadow-md text-neon-yellow font-pixel animate-bounce">

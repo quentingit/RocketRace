@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-
-type Ship = {
-  id: number;
-  left: number;
-  bottom: number;
-  duration: number;
-  size: number;
-};
+import { Ship } from "../types/ship";
 
 export const useRocketGameHome = (shipCount: number) => {
   const [ships, setShips] = useState<Ship[]>([]);

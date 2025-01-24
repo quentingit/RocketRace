@@ -1,16 +1,16 @@
 "use client";
 
-import { useRocketSelection } from "@hooks/useRocketSelection";
-import RocketCard from "@components/RocketCard/RocketCard";
 import { RocketInteraction } from "@types/enriched";
-import LoadingIndicator from "@components/common/LoadingIndicator/LoadingIndicator";
-import ErrorHandler from "@components/common/ErrorHandler/ErrorHandler";
+import LoadingIndicator from "@components/LoadingIndicator/LoadingIndicator";
+import ErrorHandler from "@components/ErrorHandler/ErrorHandler";
 import clsx from "clsx";
-import InfoPanel from "@components/InfoPanel/InfoPanel";
+import { useRocketSelection } from "./hooks/useRocketSelection";
+import RocketCard from "./components/RocketCard/RocketCard";
+import InfoPanel from "./components/InfoPanel/InfoPanel";
 
 const getLaunchButtonClasses = (isDisabled: boolean): string =>
   clsx(
-    "relative mt-10 px-10 py-5 rounded-full text-3xl font-pixel text-white bg-gradient-to-r from-neon-yellow to-orange-500 transition-transform transform hover:scale-125",
+    "relative mt-10 px-10 py-4 rounded-full text-2xl font-pixel text-white bg-gradient-to-r from-neon-yellow to-orange-500 transition-transform transform hover:scale-125",
     isDisabled
       ? "opacity-50 cursor-not-allowed"
       : "hover:from-yellow-400 hover:to-orange-400 glow-btn active:scale-95 animate-crt-flicker"
@@ -62,7 +62,7 @@ const Selection = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-900 via-black to-gray-900 text-white bg-stars animate-stars">
-      <h1 className="text-5xl font-pixel text-neon-green animate-crt-flicker mb-10">
+      <h1 className="text-5xl font-pixel text-neon-green animate-crt-flicker mb-8">
         Sélectionnez vos fusées
       </h1>
 

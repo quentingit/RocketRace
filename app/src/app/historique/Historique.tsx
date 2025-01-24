@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import RaceItem from "@components/RaceItem/RaceItem";
-import { useRaceHistory } from "src/hooks/useRaceHistory";
+
+import { useRaceHistory } from "./hooks/useRaceHistory";
+import RaceItem from "./components/RaceItem/RaceItem";
 
 const Historique: React.FC = () => {
   const { raceDetails, raceHistory, isRaceDetailsEmpty, handleClearHistory } =

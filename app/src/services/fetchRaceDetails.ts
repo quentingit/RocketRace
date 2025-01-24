@@ -1,7 +1,7 @@
-import { Race, RaceEnriched } from "@/types/graphql";
 import { GET_RACE } from "@graphql/queries";
 import client from "src/lib/apollo-client";
 import { transformRaceData } from "./transformers";
+import { Race, RaceEnriched } from "@types/graphql";
 
 // Fonction pour récupérer les détails des courses
 export const fetchRaceDetails = async (
