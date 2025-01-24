@@ -1,0 +1,42 @@
+name: ESLint Check
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  lint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Navigate to app directory
+        run: cd ./app
+
+      - name: Install dependencies
+        run: yarn install
+        working-directory: ./app
+
+      - name: Run ESLint
+        run: yarn lint
+        working-directory: ./app
+
+      - name: Annotate ESLint problems
+        if: ${{ failure() }}
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: eslint.sarif

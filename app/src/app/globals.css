@@ -569,3 +569,89 @@ body {
 .animate-tv-power-on {
   animation: tv-power-on 2s ease-in-out forwards;
 }
+
+/*ASTEROIDES*/
+
+/* Animation pour faire apparaître progressivement les astéroïdes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animation pour faire tomber les astéroïdes du haut vers le bas */
+@keyframes asteroidFall {
+  from {
+    transform: translateY(-100%) rotate(0deg);
+  }
+  to {
+    transform: translateY(120vh) rotate(360deg);
+  }
+}
+
+/* Styles de base pour tous les astéroïdes */
+.asteroid {
+  top: -30%; /* Positionnement vertical initial en dehors de l'écran */
+  opacity: 0; /* Initialement invisible */
+  /* Applique l'animation fadeIn et asteroidFall */
+  animation: fadeIn 2s forwards, asteroidFall 5s linear infinite;
+}
+
+/* Astéroïde 1 */
+.asteroid-1 {
+  left: 10%;
+  animation: fadeIn 0.5s forwards, asteroidFall 5s linear infinite;
+  animation-delay: 0s, 0s;
+}
+
+/* Astéroïde 2 */
+.asteroid-2 {
+  left: 25%;
+  animation: fadeIn 0.5s forwards, asteroidFall 6s linear infinite;
+  animation-delay: 0s, 1s;
+}
+
+/* Astéroïde 3 */
+.asteroid-3 {
+  left: 40%;
+  animation: fadeIn 0.5s forwards, asteroidFall 7s linear infinite;
+  animation-delay: 0s, 2s;
+}
+
+/* Astéroïde 4 */
+.asteroid-4 {
+  left: 55%;
+  animation: fadeIn 0.5s forwards, asteroidFall 5.5s linear infinite;
+  animation-delay: 0s, 1.5s;
+}
+
+/* Astéroïde 5 */
+.asteroid-5 {
+  left: 70%;
+  animation: fadeIn 0.5s forwards, asteroidFall 6.5s linear infinite;
+  animation-delay: 0s, 0.5s;
+}
+
+/* Astéroïde 6 */
+.asteroid-6 {
+  left: 85%;
+  animation: fadeIn 0.5s forwards, asteroidFall 7.5s linear infinite;
+  animation-delay: 0s, 2.5s;
+}
+
+/* Astéroïde 7 */
+.asteroid-7 {
+  left: 30%;
+  animation: fadeIn 0.5s forwards, asteroidFall 6.8s linear infinite;
+  animation-delay: 0s, 1.2s;
+}
+
+/* Astéroïde 8 */
+.asteroid-8 {
+  left: 75%;
+  animation: fadeIn 0.5s forwards, asteroidFall 5.3s linear infinite;
+  animation-delay: 0s, 0.8s;
+}

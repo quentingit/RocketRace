@@ -20,12 +20,13 @@
     ],
     "baseUrl": "./",
     "paths": {
+      "@appTypes/*": ["src/appTypes/*"],
       "@components/*": ["src/components/*"],
-      "@utils/*": ["src/utils/*"],
-      "@styles/*": ["src/styles/*"],
+      "@store/*": ["src/store/*"],
       "@graphql/*": ["src/graphql/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@types/*": ["src/types/*"],
+      "@lib/*": ["src/lib/*"],
+      "@providers/*": ["src/providers/*"],
       "@services/*": ["src/services/*"]
     }
   },
