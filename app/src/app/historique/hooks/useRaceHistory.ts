@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useRaceHistoryStore from "src/store/useRaceHistoryStore";
-import { fetchRaceDetails } from "@services/fetchRaceDetails";
-import { RaceEnriched } from "@types/enriched";
+import { fetchRaceDetails } from "src/app/historique/services/fetchRaceDetails";
+import { RaceEnriched } from "@types/enrichedTypes";
 
 export const useRaceHistory = () => {
   const [raceDetails, setRaceDetails] = useState<RaceEnriched[]>([]);
@@ -12,7 +12,7 @@ export const useRaceHistory = () => {
   useEffect(() => {
     const loadDetails = async () => {
       if (raceHistory.length > 0) {
-        const details = await fetchRaceDetails(raceHistory);
+        const details: RaceEnriched[] = await fetchRaceDetails(raceHistory);
         setRaceDetails(details);
       }
     };

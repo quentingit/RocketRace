@@ -1,6 +1,6 @@
-import { Race, RaceEnriched } from "@/types/graphql";
-import { FetchedRaceData } from "./types";
 import { transformRocketData } from "./transformRocketData";
+import { RaceEnriched, RocketInteraction } from "@types/enrichedTypes";
+import { GetRaceQuery, Race } from "src/__generated__/graphql";
 
 /**
  * Transforme les données d'une course en combinant les informations principales
@@ -18,10 +18,18 @@ import { transformRocketData } from "./transformRocketData";
  */
 export const transformRaceData = (
   race: Race,
-  fetchedData: FetchedRaceData
+  fetchedData: GetRaceQuery
 ): RaceEnriched => ({
   id: race.id,
-  rocket1: transformRocketData(race.rocket1, fetchedData.race?.rocket1),
-  rocket2: transformRocketData(race.rocket2, fetchedData.race?.rocket2),
-  winner: fetchedData.race?.winner || null,
+  rocket1: transformRocketData(
+    race.rocket1 as RocketInteraction,
+    fetchedData.race?.rocket1.exploded,
+    fetchedData.race?.rocket1.progress
+  ),
+  rocket2: transformRocketData(
+    race.rocket2 as RocketInteraction,
+    fetchedData.race?.rocket2.exploded,
+    fetchedData.race?.rocket2.progress
+  ),
+  winner: fetchedData.race?.winner ?? undefined,
 });

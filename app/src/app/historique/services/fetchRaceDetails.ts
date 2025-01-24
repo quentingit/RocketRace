@@ -1,17 +1,25 @@
-import { GET_RACE } from "@graphql/queries";
 import client from "src/lib/apollo-client";
-import { transformRaceData } from "./transformers";
-import { Race, RaceEnriched } from "@types/graphql";
+import { transformRaceData } from "../../../transformers";
+import {
+  GetRaceDocument,
+  GetRaceQuery,
+  GetRaceQueryVariables,
+  Race,
+} from "src/__generated__/graphql";
+import { RaceEnriched } from "@types/enrichedTypes";
 
 // Fonction pour récupérer les détails des courses
 export const fetchRaceDetails = async (
   history: Race[]
 ): Promise<RaceEnriched[]> => {
-  const details = await Promise.all(
-    history.map(async (race) => {
+  const raceDetails = await Promise.all(
+    history.map(async (race: Race) => {
       try {
-        const { data } = await client.query({
-          query: GET_RACE,
+        const { data } = await client.query<
+          GetRaceQuery,
+          GetRaceQueryVariables
+        >({
+          query: GetRaceDocument,
           variables: { raceId: race.id },
           fetchPolicy: "network-only",
         });
@@ -23,11 +31,13 @@ export const fetchRaceDetails = async (
           `Erreur lors du chargement de la course ${race.id}:`,
           error
         );
-        return null; // Retourne null en cas d'erreur
+        return null;
       }
     })
   );
 
   // Filtre les valeurs nulles
-  return details.filter((detail): detail is RaceEnriched => detail !== null);
+  return raceDetails.filter(
+    (detail): detail is RaceEnriched => detail !== null
+  );
 };

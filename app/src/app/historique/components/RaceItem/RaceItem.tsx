@@ -1,12 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Race, Rocket } from "@types/graphql";
+import { Race } from "src/__generated__/graphql";
+import { RocketInteraction } from "@types/enrichedTypes";
 
 const getWinnerName = (
   winnerId: string | null | undefined,
-  rocket1: Rocket,
-  rocket2: Rocket
+  rocket1: RocketInteraction,
+  rocket2: RocketInteraction
 ): string => {
   if (!winnerId) return "Course en cours";
   return winnerId === rocket1.id ? rocket1.name : rocket2.name;
@@ -17,8 +18,15 @@ type RaceItemProps = {
 };
 
 const RaceItem = ({ race }: RaceItemProps) => {
-  const rockets = [race.rocket1, race.rocket2];
-  const winnerName = getWinnerName(race.winner, race.rocket1, race.rocket2);
+  const rockets: RocketInteraction[] = [
+    race.rocket1 as RocketInteraction,
+    race.rocket2 as RocketInteraction,
+  ];
+  const winnerName = getWinnerName(
+    race.winner,
+    race.rocket1 as RocketInteraction,
+    race.rocket2 as RocketInteraction
+  );
 
   const renderRockets = rockets.map((rocket) => (
     <div key={rocket.id} className="flex flex-col items-center">

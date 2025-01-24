@@ -2,18 +2,26 @@
 import { useState } from "react";
 import { useQuery, useMutation, ApolloError } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import { GET_ROCKETS } from "@graphql/queries";
-import { START_RACE } from "@graphql/mutations";
 import useRaceStore from "src/store/useRaceStore";
 import useRaceHistoryStore from "src/store/useRaceHistoryStore";
-import { RocketInteraction } from "@types/enriched";
-import { Rocket } from "@types/graphql";
+
+import {
+  Race,
+  RocketsDocument,
+  RocketsQuery,
+  RocketsQueryVariables,
+  StartRaceDocument,
+  StartRaceMutation,
+  StartRaceMutationVariables,
+} from "src/__generated__/graphql";
+import { RaceEnriched, RocketInteraction } from "@types/enrichedTypes";
 
 type UseRocketSelectionResult = {
   loading: boolean;
   error?: ApolloError;
   rockets: RocketInteraction[];
-  refetch: () => Promise<Rocket[]>;
+  // refetch renvoie un Promise avec le résultat du type RocketsQuery :
+  refetch: () => Promise<unknown>;
   selectedRockets: RocketInteraction[];
   selectedRocketNames: string;
   toggleRocketSelection: (rocket: RocketInteraction) => void;
@@ -22,8 +30,16 @@ type UseRocketSelectionResult = {
 };
 
 export const useRocketSelection = (): UseRocketSelectionResult => {
-  const { loading, data, error, refetch } = useQuery(GET_ROCKETS);
-  const [startRace] = useMutation(START_RACE);
+  const { loading, data, error, refetch } = useQuery<
+    RocketsQuery,
+    RocketsQueryVariables
+  >(RocketsDocument);
+
+  const [startRace] = useMutation<
+    StartRaceMutation,
+    StartRaceMutationVariables
+  >(StartRaceDocument);
+
   const [selectedRockets, setSelectedRockets] = useState<RocketInteraction[]>(
     []
   );
@@ -57,16 +73,20 @@ export const useRocketSelection = (): UseRocketSelectionResult => {
           },
         });
 
-        const newRace = {
+        if (!data?.startRace) {
+          throw new Error("Les données de la course sont introuvables.");
+        }
+
+        const newRace: Race = {
           id: data.startRace.id,
           rocket1: selectedRockets[0],
           rocket2: selectedRockets[1],
         };
 
         addRace(newRace);
-        setRaceData(newRace);
+        setRaceData(newRace as RaceEnriched);
 
-        router.push(`/race/${data.startRace.id}`);
+        router.push(`/race/${data?.startRace.id}`);
       } catch (err) {
         console.error(err);
         alert("Erreur lors du lancement de la course !");
@@ -82,7 +102,10 @@ export const useRocketSelection = (): UseRocketSelectionResult => {
   return {
     loading,
     error,
-    rockets: data?.rockets || [],
+    // `data?.rockets` est un tableau de `Rocket` (type codegen).
+    // Si tu veux le transformer en RocketInteraction, à toi de mapper
+    // ou d’adapter les champs si nécessaire.
+    rockets: (data?.rockets as RocketInteraction[]) || [],
     refetch,
     selectedRockets,
     selectedRocketNames,

@@ -1,4 +1,5 @@
-import { Rocket } from "@/types/graphql";
+import { RocketInteraction } from "@types/enrichedTypes";
+import { Rocket } from "src/__generated__/graphql";
 
 /**
  * Transforme les données d'une fusée en combinant les informations de base
@@ -19,11 +20,13 @@ import { Rocket } from "@/types/graphql";
  */
 export const transformRocketData = (
   rocket: Rocket,
-  fetchedRocketData?: { exploded?: boolean | null; progress?: number | null }
-) => ({
+  exploded?: boolean | null,
+  progress?: number | null
+): RocketInteraction => ({
   id: rocket.id,
   name: rocket.name,
   image: rocket.image,
-  exploded: fetchedRocketData?.exploded || null,
-  progress: fetchedRocketData?.progress || null,
+  description: rocket.description,
+  exploded: !!exploded,
+  progress: progress || 0,
 });

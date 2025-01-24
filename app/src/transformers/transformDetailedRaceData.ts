@@ -1,6 +1,6 @@
-import { Rocket, Race, RaceEnriched } from "@/types/graphql";
-import { FetchedRaceData } from "./types";
-import { transformRocketData } from "@services/transformers";
+import { transformRocketData } from "src/transformers";
+import { RaceEnriched, RocketInteraction } from "@types/enrichedTypes";
+import { GetRaceQuery, Race, Rocket } from "src/__generated__/graphql";
 
 /**
  * Transforme les données détaillées d'une course en combinant les informations principales de la course,
@@ -49,7 +49,7 @@ import { transformRocketData } from "@services/transformers";
 
 export const transformDetailedRaceData = (
   race: Race,
-  fetchedData: FetchedRaceData,
+  fetchedData: GetRaceQuery,
   rockets: Rocket[]
 ): RaceEnriched | null => {
   //on get les infos d'une fusée
@@ -61,12 +61,22 @@ export const transformDetailedRaceData = (
 
   // Si les deux fusées sont valides, on crée notre course
   if (rocket1Details && rocket2Details) {
-    return {
+    const raceTransformation: RaceEnriched = {
       id: race.id,
-      rocket1: transformRocketData(rocket1Details, fetchedData.race?.rocket1),
-      rocket2: transformRocketData(rocket2Details, fetchedData.race?.rocket2),
-      winner: fetchedData.race?.winner || null,
+      rocket1: transformRocketData(
+        rocket1Details,
+        fetchedData.race?.rocket1.exploded,
+        fetchedData.race?.rocket1.progress
+      ) as RocketInteraction,
+      rocket2: transformRocketData(
+        rocket2Details,
+        fetchedData.race?.rocket2.exploded,
+        fetchedData.race?.rocket2.progress
+      ) as RocketInteraction,
+      winner: fetchedData?.race?.winner ?? undefined,
     };
+
+    return raceTransformation as RaceEnriched;
   }
   return null;
 };

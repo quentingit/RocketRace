@@ -1,4 +1,4 @@
-import { Race } from "src/types/graphql";
+import { Race } from "src/__generated__/graphql";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

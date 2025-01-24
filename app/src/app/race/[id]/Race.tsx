@@ -51,8 +51,7 @@ const Race = () => {
     return (
       <ErrorHandler
         errorMessage="Erreur lors du chargement de la course"
-        onRetry={undefined}
-        //onRetry={refetch}
+        onRetry={handleRefetch}
       />
     );
   }

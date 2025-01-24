@@ -2,7 +2,12 @@
 
 import React from "react";
 
-const ErrorHandler = ({ errorMessage, onRetry }) => (
+type ErrorHandlerProps = {
+  errorMessage: string;
+  onRetry: () => void;
+};
+
+const ErrorHandler = ({ errorMessage, onRetry }: ErrorHandlerProps) => (
   <div className="flex flex-col items-center justify-center min-h-screen bg-black text-neon-red p-4 bg-stars animate-stars">
     {/* Titre en néon avec effet rétro */}
     <h1 className="text-4xl font-pixel text-neon-yellow mb-4 animate-crt-flicker">
