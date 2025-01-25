@@ -6,9 +6,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost",
-        port: "4000",
+        protocol: "https",
+        hostname:
+          "container-service-1.5w9nttkswwxhj.eu-west-3.cs.amazonlightsail.com",
         pathname: "/**",
       },
     ],
