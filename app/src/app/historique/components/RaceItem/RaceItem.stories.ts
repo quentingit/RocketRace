@@ -1,7 +1,6 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import RaceItem from "./RaceItem";
-import { Race } from "src/__generated__/graphql";
+import { Race, RocketProgress } from "src/__generated__/graphql";
 import { RocketInteraction } from "@appTypes/enrichedTypes";
 
 const meta: Meta<typeof RaceItem> = {
@@ -30,8 +29,8 @@ const mockRocket2: RocketInteraction = {
 // Mock data for race
 const mockRace: Race = {
   id: "race-123",
-  rocket1: mockRocket1 as any, // Replace `any` with the proper type if needed
-  rocket2: mockRocket2 as any,
+  rocket1: mockRocket1 as RocketProgress,
+  rocket2: mockRocket2 as RocketProgress,
   winner: "rocket-1",
 };
 
