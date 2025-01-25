@@ -1,5 +1,9 @@
 ## 🚀 RocketRace
 
+
+👉 Pour jouer a **Rocket Race**  :  [Jouer maintenant](https://rocketrace.quentinberanger.com/)   ou    [https://rocketrace.quentinberanger.com/](https://rocketrace.quentinberanger.com/) 
+
+
 <table>
   <tr>
     <td>
@@ -58,6 +62,7 @@
 <br>
 <br>
 
+
 # 🔧 Stack Technique
 
 #### Développement Frontend
@@ -66,6 +71,8 @@
 - **TypeScript** : Super-ensemble de JavaScript pour un typage statique et une meilleure maintenabilité du code.
 - **TailwindCSS** : Framework CSS utilitaire pour un développement rapide et des designs modernes.
 - **Clsx** : Simplifie la gestion conditionnelle des classes CSS dans les composants.
+- **Storybook** : Permet de développer, tester, et documenter les composants en isolation avec une interface dédiée.
+
 
 #### Outils de Build et de Qualité
 - **Turbopack** : Outil de développement rapide pour optimiser les performances.
@@ -78,11 +85,69 @@
 - **GraphQL** : Langage de requête structuré pour interagir avec l'API.
 - **GraphQL-WS** : Gestion des abonnements en temps réel pour GraphQL.
 - **Zustand** : Librairie de gestion d'état légère et efficace.
-
-#### Déploiement
-- **Vercel** : Plateforme de déploiement continu pour héberger l'application et gérer automatiquement les changements.
+- **GraphQL Codegen** : Génération automatique des types TypeScript et des hooks GraphQL pour un code fortement typé.
 
 
+#### Déploiement et Infrastructure
+- **AWS Lightsail** : Hébergement du backend via des conteneurs Docker.
+- **Vercel** : Déploiement automatique du frontend avec gestion simplifiée des builds.
+
+#### Intégration Continue
+- **GitHub Actions** : Automatisation des tests, de l'analyse de code (ESLint), du déploiement Storybook, et de la génération de types GraphQL avec Codegen.
+
+
+
+<br/>
+<br/>
+
+# 🚀 CI/CD Pipeline
+
+L'application **Rocket Race** dispose d'un pipeline d'intégration et de déploiement continu bien structuré ! Voici les détails 👇
+
+
+##  **Frontend (Next.js)**
+
+- **Déploiement automatique :**  
+  L'application est déployée automatiquement via **Vercel** à chaque push sur la branche **main** de GitHub.  
+  - **URL du sous-domaine :** [rocketrace.quentinberanger.com](https://rocketrace.quentinberanger.com/)
+
+##  **Backend (Node.js)**
+
+- **Hébergement :**  
+  Le backend est hébergé sur **Amazon Lightsail** avec deux conteneurs Docker  
+  - **Images utilisées :** 
+    - [Redis](https://hub.docker.com/_/redis) 
+    - L'image de notre serveur graphql (dossier /graphql) 
+
+- **Commande de build du conteneur :**
+```bash
+docker build --platform linux/amd64 -t my-nodejs-image .
+```
+
+- **Commande pour l’envoi de l’image sur Amazon Lightsail : :**
+```bash
+aws lightsail push-container-image --region eu-west-3 --service-name container-service-1 --label my-nodejs-image-label --image my-nodejs-image:latest
+```
+
+- **Point d’entrée (port 80) :**  
+  Accessible en HTTPS :  
+  [container-service-1.5w9nttkswwxhj.eu-west-3.cs.amazonlightsail.com](https://container-service-1.5w9nttkswwxhj.eu-west-3.cs.amazonlightsail.com)
+
+🎯 **Tester l’API GraphQL**  
+- **URL d’accès à l’API :**  
+  [https://container-service-1.5w9nttkswwxhj.eu-west-3.cs.amazonlightsail.com/graphql](https://container-service-1.5w9nttkswwxhj.eu-west-3.cs.amazonlightsail.com/graphql)
+
+
+## **GitHub Actions**
+
+### **Storybook Deployment**
+- Déploie automatiquement **Storybook** sur **GitHub Pages** après chaque push sur les branches **main** et **dev**.
+- **URL du Storybook :** [quentingit.github.io/RocketRace](https://quentingit.github.io/RocketRace/)
+
+### **ESLint Check**
+- Vérifie automatiquement la qualité du code avec **ESLint** après chaque push ou pull request sur les branches **main** et **dev**.
+  
+<br/>
 <br/>
 
 # 🗂️ Structure 
@@ -245,27 +310,89 @@ const handleOverlayClose = () => {
 # 🌐 Gestion Données : Intégration GraphQL & Transformation Données
 <br/>
 
-## **📡 Interaction avec GraphQL**
 
-- Les données de l'application, comme les informations sur les courses et les fusées, sont récupérées via des **queries** et mises à jour en temps réel grâce aux **subscriptions**.
-- Les mutations permettent d'envoyer des actions spécifiques, comme lancer une course.
+
+L'application utilise intensivement GraphQL pour récupérer et mettre à jour les données de manière optimisée. Les **queries**, **subscriptions**, et transformations des données permettent de garantir une interaction fluide et réactive. Voici les détails 👇
+
+
+## **⚙️ Codegen : Génération Automatique de Types GraphQL**
+
+L'intégration de **GraphQL Codegen** dans l'application **Rocket Race** permet de générer automatiquement les types TypeScript et les hooks associés pour nos **queries**, **mutations**, et **subscriptions**, rendant le développement plus rapide et fiable.
+
+### 🔧 **Configuration dans le projet**
+
+- **Script dans le `package.json` :**  
+  ```json
+  "generate": "graphql-codegen"
+
+Ce script permet de lancer la génération des types via **GraphQL Codegen**.
+
+- **Structure des fichiers :**
+  - Les fichiers GraphQL sont placés dans `src/graphql/` et contiennent :
+    - **`queries.ts`** : Contient toutes les **queries**.
+    - **`mutations.ts`** : Contient toutes les **mutations**.
+    - **`subscriptions.ts`** : Contient toutes les **subscriptions**.
+  - La génération des types crée un dossier `src/__generated__/` contenant :
+    - Les types **TypeScript** pour chaque opération GraphQL.
+    - Un fichier **`graphql.ts`** spécialement conçu pour **Apollo Client**, générant des hooks comme `useQuery`, `useMutation`, et `useSubscription` directement utilisables.
+
+
+
+
  
+### 1️⃣ Queries : Récupération initiale des données
 
-### 1️⃣ **Subscriptions** : Suivi en temps réel des fusées
+Pour les **queries**, l'utilisation de **GraphQL Codegen** améliore considérablement la maintenabilité et la sécurité du code. 
 
-Les **subscriptions** permettent de suivre en direct la progression et l'état des fusées lors de la course. Elles ne sont activées que si toutes les informations nécessaires sont déjà disponibles (par exemple, si l'utilisateur vient de la page de sélection).
-
+- Lorsque l’utilisateur arrive sur la page via une **URL directe** (et non via l’écran de sélection), les informations nécessaires sur la course et les fusées doivent être récupérées à l’aide de **queries**.
+  
 ```typescript
-// GQL: subscription pour la progression de la fusée 1
-const { data: rocket1Progress } = useSubscription(ROCKET_PROGRESS, {
-  variables: { raceId: raceData?.id, rocketId: raceData?.rocket1?.id },
-  skip: !raceData || !raceData.rocket1 || Boolean(raceData?.winner), // Pas de subscription si les données sont manquantes ou si un vainqueur est déjà déclaré
+//recuperation de la course
+const {
+  loading: loadingRace,
+  data: fetchedRaceData,
+  error: raceError,
+  refetch: refetchRace,
+} = useQuery<GetRaceQuery, GetRaceQueryVariables>(GetRaceDocument, {
+  variables: { raceId: Array.isArray(raceId) ? raceId[0] : raceId || "" },
+  fetchPolicy: "network-only",
+  skip: !raceId,
 });
 
-// GQL: subscription pour la progression de la fusée 2
-const { data: rocket2Progress } = useSubscription(ROCKET_PROGRESS, {
-  variables: { raceId: raceData?.id, rocketId: raceData?.rocket2?.id },
-  skip: !raceData || !raceData.rocket2 || Boolean(raceData?.winner), // Même logique que pour la fusée 1
+//recuperation des fusées
+const {
+  loading: loadingRockets,
+  data: rocketsData,
+  error: rocketsError,
+  refetch: refetchRockets,
+} = useQuery<RocketsQuery, RocketsQueryVariables>(RocketsDocument, {
+  skip: !!raceData,
+});
+```
+
+<br/><br/>
+
+### 2️⃣ **Subscriptions** : Suivi en temps réel des fusées
+
+Les **subscriptions** permettent une mise à jour en temps réel de l’état des fusées pendant une course. Grâce à Codegen, les subscriptions sont également fortement typées, ce qui simplifie leur gestion et évite les erreurs.
+
+
+```typescript
+const { data: rocket1Progress } = useSubscription<
+  RocketProgressSubscription,
+  RocketProgressSubscriptionVariables
+>(RocketProgressDocument, {
+  variables: {
+    raceId: raceData?.id ?? "",
+    rocketId: raceData?.rocket1?.id ?? "",
+  },
+  skip: !raceData?.rocket1 || Boolean(raceData?.winner),
+  onSubscriptionData: () => {
+    setSubscriptionState((prev) => ({
+      date: Date.now(),
+      count: prev.count + 1,
+    }));
+  },
 });
 ```
 
@@ -276,114 +403,79 @@ const { data: rocket2Progress } = useSubscription(ROCKET_PROGRESS, {
 - Si l’utilisateur arrive sur la page via une **URL directe** (par exemple `/race/4b116ca6-4cbe-490c-a0ad-5c9be63fa326`), les **subscriptions** ne sont pas utilisées immédiatement, car les informations sur la course doivent d’abord être récupérées via des **queries**.
 
 
-### 2️⃣ Queries : Récupération initiale des données
-
-- Lorsque l’utilisateur arrive sur la page via une **URL directe** (et non via l’écran de sélection), les informations nécessaires sur la course et les fusées doivent être récupérées à l’aide de **queries**.
-  
-```typescript
-// GQL: récupérer les informations de la course
-const {
-  loading: loadingRace,
-  error: raceError,
-  data: fetchedRaceData,
-} = useQuery(GET_RACE, {
-  variables: { raceId }, // ID de la course
-  fetchPolicy: "network-only", // Force un rafraîchissement des données, car elles changent rapidement pendant la course
-  skip: !raceId, // Ne lance pas la requête si l'ID de la course n'est pas disponible
-});
-
-// GQL: récupérer les informations sur les fusées
-const { loading: loadingRockets, data: rocketsData } = useQuery(GET_ROCKETS, {
-  skip: !!raceData, // on active la requete si on a pas les données de courses
-});
-```
-
-<br/><br/>
 
 
-## **🔄 Transformation des Données**
+## **🔄 Transformation des Données (Object Model) **
 
 - Les données brutes récupérées via l'API GraphQL sont transformées pour être compatibles avec le format attendu par l'application.
 - Une gestion claire des transformations garantit que l'interface utilisateur affiche toujours des données cohérentes et bien structurées.
 - **Exemple :** La transformation des informations des fusées et des courses est effectuée à l'aide de fonctions spécifiques pour enrichir ou filtrer les données nécessaires.
 
 
-### Hook Personnalisé : useRaceData
+### Exemple ###
 
-le  hook useRaceManager gère la récupération et la transformation des données de course et les enregistre dans Zustand.
+la fonction fetchRaceDetails useRaceManager gère la récupération et la transformation des données des données d'une course
 
 ```typescript
+export const fetchRaceDetails = async (
+  history: Race[]
+): Promise<RaceEnriched[]> => {
+  const raceDetails = await Promise.all(
+    history.map(async (race: Race) => {
+      try {
+        const { data } = await client.query<
+          GetRaceQuery,
+          GetRaceQueryVariables
+        >({
+          query: GetRaceDocument,
+          variables: { raceId: race.id },
+          fetchPolicy: "network-only",
+        });
 
-
-
-  const raceData = useRaceStore((state) => state.raceData);
-  const setRaceData = useRaceStore((state) => state.setRaceData);
-  ...
-  useEffect(() => {
-    // Si les données de course ne sont pas encore disponibles, les transformer
-   // fetchedRaceData : Données brutes récupérées via GraphQL sur la course.
-   // rocketsData :  Liste complète des fusées disponibles récupérée via GraphQL
-    if (!raceData && fetchedRaceData?.race && rocketsData) {
-      const { race: fetchedRace } = fetchedRaceData;
-
-      // Transformation des données brutes en données enrichies
-      const transformedRace = transformDetailedRaceData(
-        fetchedRace,
-        fetchedRaceData,
-        rocketsData.rockets
-      );
-
-      // Si la transformation a réussi, mettre à jour Zustand
-      if (transformedRace) {
-        setRaceData(transformedRace);
+        // Transformation des données
+        return transformRaceData(race, data);
+      } catch (error) {
+        console.error(
+          `Erreur lors du chargement de la course ${race.id}:`,
+          error
+        );
+        return null;
       }
-    }
-  }, [raceData, fetchedRaceData, rocketsData, setRaceData]);
-  ...
-};
+    })
+  );
+
 ```
 
 
-### Fonctions de Transformation
+### Fonctions de Transformation 
 
-Ces fonctions restent dans des fichiers distincts, par exemple dans `src/services/transformers/transformDetailedRaceData.tsx`.
 
----
+Les fonctions de transformation des données sont placées dans des fichiers dédiés, comme `src/services/transformers/transformDetailedRaceData.tsx`.
+Elles ajustent les données brutes de l'API pour qu'elles soient directement exploitables par le frontend, tout en garantissant un code clair et maintenable.
+
+
 
 ### **1. Transformation des Données d’une Course**
 
 
 ```typescript
-/**
- * Transforme les données d'une course pour enrichir les informations des fusées.
- *
- * @param race - Données principales de la course.
- * @param fetchedData - Données supplémentaires récupérées via GraphQL.
- * @param rockets - Liste complète des fusées disponibles.
- * @returns Données enrichies de la course ou `null` si les fusées sont invalides.
- */
-export const transformDetailedRaceData = (
+export const transformRaceData = (
   race: Race,
-  fetchedData: FetchedRaceData,
-  rockets: Rocket[]
-): RaceEnriched | null => {
-  const getRocketDetails = (rocketId: string): Rocket | null =>
-    rockets.find((rocket) => rocket.id === rocketId) || null;
-
-  const rocket1Details = getRocketDetails(race.rocket1.id);
-  const rocket2Details = getRocketDetails(race.rocket2.id);
-
-  if (rocket1Details && rocket2Details) {
-    return {
-      id: race.id,
-      rocket1: transformRocketData(rocket1Details, fetchedData.race?.rocket1),
-      rocket2: transformRocketData(rocket2Details, fetchedData.race?.rocket2),
-      winner: fetchedData.race?.winner || null,
-    };
-  }
-
-  return null;
-};
+  fetchedData: GetRaceQuery
+): RaceEnriched => ({
+  id: race.id,
+  rocket1: transformRocketData(
+    race.rocket1 as RocketInteraction,
+    fetchedData.race?.rocket1.exploded,
+    fetchedData.race?.rocket1.progress
+  ),
+  rocket2: transformRocketData(
+    race.rocket2 as RocketInteraction,
+    fetchedData.race?.rocket2.exploded,
+    fetchedData.race?.rocket2.progress
+  ),
+  winner: fetchedData.race?.winner ?? undefined,
+});
 ```
 
 
@@ -392,22 +484,17 @@ export const transformDetailedRaceData = (
 
 
 ```typescript
-/**
- * Transforme les données d'une fusée en enrichissant ses informations avec des données supplémentaires.
- *
- * @param rocket - Données principales de la fusée (ID, nom, image).
- * @param fetchedRocketData - Données supplémentaires récupérées (progression, explosion).
- * @returns Données enrichies de la fusée.
- */
 export const transformRocketData = (
   rocket: Rocket,
-  fetchedRocketData?: { exploded?: boolean | null; progress?: number | null }
-) => ({
+  exploded?: boolean | null,
+  progress?: number | null
+): RocketInteraction => ({
   id: rocket.id,
   name: rocket.name,
   image: rocket.image,
-  exploded: fetchedRocketData?.exploded || null,
-  progress: fetchedRocketData?.progress || null,
+  description: rocket.description,
+  exploded: !!exploded,
+  progress: progress || 0,
 });
 ```
 
