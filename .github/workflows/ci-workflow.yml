@@ -23,11 +23,11 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
         working-directory: ./app
 
       - name: Run ESLint
-        run: yarn lint
+        run: npm lint
         working-directory: ./app
 
   test:
