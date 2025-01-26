@@ -196,6 +196,44 @@ aws lightsail push-container-image --region eu-west-3 --service-name container-s
 <img src="./docs/CI.png" alt="CI" width="70%">
 
 
+
+## **Husky / Commitlint**
+
+### Ajout d'un package.json à la racine pour Husky et Commitlint
+
+Les hooks Husky garantissent la qualité du code localement et s’intègrent parfaitement dans la CI/CD.
+
+- **Objectif** : Configurer Husky et Commitlint pour assurer la qualité du code
+- **Pré-commit** : 
+  - Vérifie les tests.
+  - Exécute le lint sur les fichiers modifiés avec `lint-staged`.
+- **Commit-msg** :
+  - Valide les messages de commit avec Commitlint.
+
+#### Pre-commit :
+```bash
+#!/bin/sh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+cd ./app || exit 1
+npm test || exit 1
+npx lint-staged || exit 1
+
+echo "Pre-commit terminé avec succès !"
+```
+
+#### Commit-msg :
+```
+#!/bin/sh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+npx commitlint --edit "$1" || exit 1
+```
+
 <br/>
 <br/>
 
