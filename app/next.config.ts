@@ -6,9 +6,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname:
-          "container-service-1.5w9nttkswwxhj.eu-west-3.cs.amazonlightsail.com",
+        protocol: process.env.NEXT_PUBLIC_GRAPHQL_PROTOCOL || "http",
+        hostname: process.env.NEXT_PUBLIC_GRAPHQL_HOSTNAME || "localhost",
+        port: process.env.NEXT_PUBLIC_GRAPHQL_PORT || "4000",
         pathname: "/**",
       },
     ],
