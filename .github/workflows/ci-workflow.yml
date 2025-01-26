@@ -52,8 +52,11 @@ jobs:
         with:
           node-version: 18.16.0
 
+      - name: Navigate to app directory
+        run: cd ./app
+
       - name: Install dependencies
-        run: npm install
+        run: yarn install
 
       - name: Run tests
-        run: npm run test
+        run: yarn run test
