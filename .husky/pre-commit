@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Naviguer dans le dossier `app`
+cd ./app || { echo "Erreur : Impossible de trouver le dossier app"; exit 1; }
+
+# Lancer les tests
+echo "Exécution des tests..."
+npm test || { echo "Erreur : Les tests ont échoué"; exit 1; }
+
+# Lancer lint-staged
+echo "Exécution de lint-staged..."
+npx lint-staged || { echo "Erreur : lint-staged a échoué"; exit 1; }
+
+echo "Pre-commit terminé avec succès !"
