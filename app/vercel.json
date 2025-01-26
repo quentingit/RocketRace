@@ -1,9 +1,0 @@
-{
-  "github": {
-    "enabled": true,
-    "autoJobCancelation": true,
-    "deployments": {
-      "allowedBranches": ["main", "dev"]
-    }
-  }
-}
