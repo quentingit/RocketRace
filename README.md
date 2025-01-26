@@ -63,6 +63,44 @@
 <br>
 
 
+# Lancer le projet
+
+Ce projet propose deux environnements : **développement** et **production**, chacun avec ses propres fichiers `Dockerfile` et `docker-compose`.
+
+
+### Environnement de Développement
+
+Pour lancer le projet en mode développement :
+
+```bash
+docker compose -f docker-compose.dev.yml up --build -d
+```
+Ce mode permet de voir les changements en temps réel pendant que vous développez.
+Les conteneurs sont reconstruits et redémarrés à chaque exécution.
+
+ <br/>
+
+### Environnement de Production
+
+Pour lancer le projet en mode production, où tout est optimisé pour être déployé sur un serveur :
+
+```bash
+docker compose -f docker-compose.prod.yml up --build -d
+```
+Utilisez cette commande pour tester le comportement de l’application en conditions réelles directement sur Docker.
+
+<br/>
+
+### Lancer uniquement le Frontend
+
+Si vous souhaitez travailler uniquement sur le frontend sans lancer les conteneurs Docker, procédez comme suit :
+
+```bash
+cd ./app && npm install && npm run dev
+```
+
+<br/>
+
 # 🔧 Stack Technique
 
 #### Développement Frontend
@@ -71,14 +109,14 @@
 - **TypeScript** : Super-ensemble de JavaScript pour un typage statique et une meilleure maintenabilité du code.
 - **TailwindCSS** : Framework CSS utilitaire pour un développement rapide et des designs modernes.
 - **Clsx** : Simplifie la gestion conditionnelle des classes CSS dans les composants.
-- **Storybook** : Permet de développer, tester, et documenter les composants en isolation avec une interface dédiée.
-
 
 #### Outils de Build et de Qualité
 - **Turbopack** : Outil de développement rapide pour optimiser les performances.
 - **ESLint** : Outil de linting pour identifier et corriger les erreurs de code.
 - **Prettier** : Formateur de code pour garantir un style de code uniforme.
 - **Next.js Lint** : Configurations spécifiques pour respecter les bonnes pratiques avec Next.js.
+- **Storybook** : Permet de développer, tester, et documenter les composants en isolation avec une interface dédiée.
+
 
 #### Gestion de Données et API
 - **Apollo Client** : Gestionnaire de requêtes GraphQL pour le frontend.
@@ -87,6 +125,9 @@
 - **Zustand** : Librairie de gestion d'état légère et efficace.
 - **GraphQL Codegen** : Génération automatique des types TypeScript et des hooks GraphQL pour un code fortement typé.
 
+#### Tests et Qualité Logicielle
+- **Vitest** : Framework de tests rapide et moderne pour exécuter des tests unitaires et d'intégration.
+- **Testing Library** : Suite d'outils pour tester les composants React de manière axée sur l'expérience utilisateur, avec des assertions DOM et des simulations d'interactions utilisateur.
 
 #### Déploiement et Infrastructure
 - **AWS Lightsail** : Hébergement du backend via des conteneurs Docker.
@@ -146,26 +187,59 @@ aws lightsail push-container-image --region eu-west-3 --service-name container-s
 
 ### **ESLint Check**
 - Vérifie automatiquement la qualité du code avec **ESLint** après chaque push ou pull request sur les branches **main** et **dev**.
-  
+
+### **Vitest Tests**
+- Exécute automatiquement les tests unitaires avec Vitest après chaque push ou pull request sur les branches main et dev pour garantir la stabilité du code.
+
+<img src="./docs/CI.png" alt="CI" width="70%">
+
+
 <br/>
 <br/>
 
 # 🗂️ Structure 
 
- <img src="./docs/arborescence.png" alt="Arborescence RocketRace" style="width: 30%;">
+ <img src="./docs/arborescence.png" alt="Arborescence RocketRace" style="width: 25%;">
 
 
-| **Dossier**     | **Description**                                                                                      |
-|------------------|--------------------------------------------------------------------------------------------------|
-| `app/`           | Contient la structure des pages principales de l'application, avec des routes dynamiques (par exemple, `/race/[id]`). Inclut les sous-répertoires pour les fonctionnalités comme l'`historique` et la `sélection`. |
-| `components/`    | Regroupe tous les composants réutilisables, tels que `Header`, `Footer`, `RocketCard`, et des éléments spécifiques comme `RaceItem` ou `WinnerMessage`. Chaque composant est organisé dans son propre dossier. |
-| `graphql/`       | Centralise les requêtes GraphQL (`queries.ts`), mutations (`mutations.ts`) et abonnements (`subscriptions.ts`) pour interagir avec l'API GraphQL de manière structurée. |
-| `hooks/`         | Contient des hooks personnalisés pour encapsuler des logiques spécifiques, comme `useRocketSelection` pour la gestion des fusées ou `useRaceManager` pour la gestion des courses. |
-| `lib/`           | Comprend des configurations globales comme `apollo-client.ts` pour Apollo GraphQL et des stores Zustand (`useRaceStore.ts`, `useRaceHistoryStore.ts`). |
-| `services/`      | Inclut la logique métier, comme la transformation des données (`transformers/`) et la gestion des appels API (`fetchRaceDetails.ts`). Structure le code pour une séparation claire des responsabilités. |
-| `styles/`        | Regroupe les styles globaux (via `globals.css`) pour définir les thèmes et les classes communes, avec une intégration de TailwindCSS. |
-| `types/`         | Déclare les types TypeScript, avec des fichiers comme `graphql.ts` (types pour les données GraphQL) et `enriched.ts` (types enrichis pour les données manipulées dans l'application). |
-| `utils/`         | Contient des utilitaires spécifiques, comme `buttonStyles.ts`, pour centraliser les styles ou les helpers partagés. |
+| **Dossier**      | **Description**                                                                                      |
+|-------------------|--------------------------------------------------------------------------------------------------|
+| `app/`           | Contient la structure des pages principales de l'application, incluant des routes dynamiques comme `/race/[id]`. Inclut les sous-répertoires pour des fonctionnalités comme `historique`, `homepage` et `selection`. |
+| `appTypes/`      | Déclare des types enrichis spécifiques à l'application (fichiers comme `enrichedTypes.ts`), pour une meilleure gestion des données. |
+| `components/`    | Regroupe tous les composants réutilisables, tels que `Header`, `Footer`, `LoadingIndicator` ou des éléments spécifiques comme `Asteroids` et `AudioPlayer`. Chaque composant est organisé dans son propre dossier. |
+| `graphql/`       | Centralise les fichiers liés à GraphQL, incluant les requêtes (`queries.ts`), mutations (`mutations.ts`) et abonnements (`subscriptions.ts`) pour une interaction structurée avec l'API. |
+| `hooks/`         | Contient des hooks personnalisés pour encapsuler des logiques spécifiques, comme `useAudio` et `useWindowSize`. |
+| `lib/`           | Fournit des fichiers de configuration ou de logique réutilisable, tels que `apollo-client.ts` pour la configuration d'Apollo Client. |
+| `providers/`     | Contient des composants pour fournir des contextes ou des dépendances globales, comme `ClientApolloProvider.tsx`. |
+| `store/`         | Implémente des stores Zustand, par exemple pour la gestion de l'historique des courses (`useRaceHistoryStore.ts`) ou des données audio (`useAudioStore.ts`). |
+| `transformers/`  | Inclut des fonctions de transformation pour manipuler les données récupérées de l'API, comme `transformRaceData.ts` ou `transformRocketData.ts`. |
+| `__generated__/` | Contient les fichiers générés automatiquement (comme les types GraphQL). Ce dossier ne doit généralement pas être modifié manuellement. |
+
+
+
+### **Modularisation par Feature**
+
+
+ <img src="./docs/arborescence-app.png" alt="Arborescence app" style="width: 25%;">
+
+
+Ce projet suit une structure **feature-based** :
+- Chaque fonctionnalité (comme `historique` ou `homepage`) est isolée dans son propre dossier.
+- Chaque dossier regroupe **les composants**, **les hooks**, **les services**, **les types**, et **les pages** associés à cette fonctionnalité.
+- Les **tests** (`.test.tsx`) et les **stories** Storybook (`.stories.ts`) sont directement inclus avec les composants pour plus de clarté et de proximité.
+
+ **Intégration avec Storybook et Tests**
+- Les composants incluent systématiquement des stories pour Storybook (`.stories.ts`) afin de faciliter leur documentation et visualisation isolée.
+- Les tests unitaires sont présents dans les mêmes dossiers sous forme de fichiers `.test.tsx`, alignés avec chaque composant.
+
+| **Dossier/Fichier** | **Description**                                                                                     |
+|----------------------|----------------------------------------------------------------------------------------------------|
+| `components/`        | Contient tous les composants spécifiques à cette fonctionnalité.   <br/> - Chaque composant est accompagné de ses fichiers associés : une story pour Storybook (`.stories.ts`), un test unitaire (`.test.tsx`), et son fichier principal (`.tsx`). |
+| `hooks/`             | Regroupe des hooks personnalisés pour encapsuler la logique métier propre à cette fonctionnalité.  <br/> - Permet de simplifier et de réutiliser la logique dans les composants ou autres parties de la fonctionnalité. |
+| `types/`             | Déclare les types TypeScript spécifiques à cette fonctionnalité.   <br/> - Définit les interfaces et les types nécessaires pour les données manipulées ou affichées dans cette fonctionnalité. |
+| `page.tsx`           | Fichier principal de la page (point d'entrée)  <br/> - Importe le composant principal de la fonctionnalité (par exemple, `Historique`).  <br/> - Inclut la fonction `generateMetadata` pour définir le titre et la description (SEO) de la page.                                |
+ 
+
 
 
 
