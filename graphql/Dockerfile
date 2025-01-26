@@ -33,4 +33,7 @@ RUN yarn install --production --ignore-scripts --prefer-offline
 
 CMD yarn run start
 
+#PRODUCTION LIGHTSAIL 
+#EXPOSE 80
+
 EXPOSE 4000
