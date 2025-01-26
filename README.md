@@ -162,7 +162,9 @@ L'application **Rocket Race** dispose d'un pipeline d'intégration et de déploi
 
 - **Commande de build du conteneur :**
 ```bash
-docker build --platform linux/amd64 -t my-nodejs-image .
+docker build --platform linux/amd64 -f Dockerfile.dev -t my-nodejs-image .
+docker build --platform linux/amd64 -f Dockerfile.prod -t my-nodejs-image .
+
 ```
 
 - **Commande pour l’envoi de l’image sur Amazon Lightsail : :**
