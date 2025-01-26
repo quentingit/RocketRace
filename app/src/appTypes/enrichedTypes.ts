@@ -1,4 +1,4 @@
-import { Rocket, RocketProgress } from "src/__generated__/graphql";
+import { Rocket, RocketProgress } from 'src/__generated__/graphql';
 
 export type RocketInteraction = Rocket & RocketProgress;
 

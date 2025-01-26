@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 type OverlayWithTVEffectProps = {
   isPoweringOn: boolean;
@@ -9,12 +9,12 @@ type OverlayWithTVEffectProps = {
 const OverlayWithTVEffect = ({
   isPoweringOn,
   onClose,
-  buttonText = "Allumer !",
+  buttonText = 'Allumer !',
 }: OverlayWithTVEffectProps) => {
   return (
     <div
       className={`fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center ${
-        isPoweringOn ? "animate-tv-power-on" : ""
+        isPoweringOn ? 'animate-tv-power-on' : ''
       }`}
     >
       {/* Effet de lignes cathodiques */}

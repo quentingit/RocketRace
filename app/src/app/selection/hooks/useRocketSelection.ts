@@ -1,9 +1,9 @@
 // hooks/useRocketSelection.jsx
-import { useState } from "react";
-import { useQuery, useMutation, ApolloError } from "@apollo/client";
-import { useRouter } from "next/navigation";
-import useRaceStore from "src/store/useRaceStore";
-import useRaceHistoryStore from "src/store/useRaceHistoryStore";
+import { useState } from 'react';
+import { useQuery, useMutation, ApolloError } from '@apollo/client';
+import { useRouter } from 'next/navigation';
+import useRaceStore from 'src/store/useRaceStore';
+import useRaceHistoryStore from 'src/store/useRaceHistoryStore';
 
 import {
   Race,
@@ -13,8 +13,8 @@ import {
   StartRaceDocument,
   StartRaceMutation,
   StartRaceMutationVariables,
-} from "src/__generated__/graphql";
-import { RaceEnriched, RocketInteraction } from "@appTypes/enrichedTypes";
+} from 'src/__generated__/graphql';
+import { RaceEnriched, RocketInteraction } from '@appTypes/enrichedTypes';
 
 type UseRocketSelectionResult = {
   loading: boolean;
@@ -74,7 +74,7 @@ export const useRocketSelection = (): UseRocketSelectionResult => {
         });
 
         if (!data?.startRace) {
-          throw new Error("Les données de la course sont introuvables.");
+          throw new Error('Les données de la course sont introuvables.');
         }
 
         const newRace: Race = {
@@ -89,7 +89,7 @@ export const useRocketSelection = (): UseRocketSelectionResult => {
         router.push(`/race/${data?.startRace.id}`);
       } catch (err) {
         console.error(err);
-        alert("Erreur lors du lancement de la course !");
+        alert('Erreur lors du lancement de la course !');
       } finally {
       }
     }, 300);
@@ -97,7 +97,7 @@ export const useRocketSelection = (): UseRocketSelectionResult => {
 
   const selectedRocketNames = selectedRockets
     .map((rocket) => rocket.name)
-    .join(", ");
+    .join(', ');
 
   return {
     loading,

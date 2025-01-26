@@ -1,5 +1,5 @@
-import { RocketInteraction } from "@appTypes/enrichedTypes";
-import { Rocket } from "src/__generated__/graphql";
+import { RocketInteraction } from '@appTypes/enrichedTypes';
+import { Rocket } from 'src/__generated__/graphql';
 
 /**
  * Transforme les données d'une fusée en combinant les informations de base

@@ -14,10 +14,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
-    "\n  mutation StartRace($rocket1: ID!, $rocket2: ID!) {\n    startRace(rocket1: $rocket1, rocket2: $rocket2) {\n      id\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n": types.StartRaceDocument,
-    "\n  query Rockets {\n    rockets {\n      id\n      name\n      image\n      description\n    }\n  }\n": types.RocketsDocument,
-    "\n  query GetRace($raceId: ID!) {\n    race(id: $raceId) {\n      id\n      winner\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n": types.GetRaceDocument,
-    "\n  subscription RocketProgress($raceId: ID!, $rocketId: ID!) {\n    rocketProgress(raceId: $raceId, rocketId: $rocketId) {\n      raceId\n      rocketId\n      progress\n      exploded\n    }\n  }\n": types.RocketProgressDocument,
+  '\n  mutation StartRace($rocket1: ID!, $rocket2: ID!) {\n    startRace(rocket1: $rocket1, rocket2: $rocket2) {\n      id\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n':
+    types.StartRaceDocument,
+  '\n  query Rockets {\n    rockets {\n      id\n      name\n      image\n      description\n    }\n  }\n':
+    types.RocketsDocument,
+  '\n  query GetRace($raceId: ID!) {\n    race(id: $raceId) {\n      id\n      winner\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n':
+    types.GetRaceDocument,
+  '\n  subscription RocketProgress($raceId: ID!, $rocketId: ID!) {\n    rocketProgress(raceId: $raceId, rocketId: $rocketId) {\n      raceId\n      rocketId\n      progress\n      exploded\n    }\n  }\n':
+    types.RocketProgressDocument,
 };
 
 /**
@@ -37,22 +41,31 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation StartRace($rocket1: ID!, $rocket2: ID!) {\n    startRace(rocket1: $rocket1, rocket2: $rocket2) {\n      id\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation StartRace($rocket1: ID!, $rocket2: ID!) {\n    startRace(rocket1: $rocket1, rocket2: $rocket2) {\n      id\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n"];
+export function gql(
+  source: '\n  mutation StartRace($rocket1: ID!, $rocket2: ID!) {\n    startRace(rocket1: $rocket1, rocket2: $rocket2) {\n      id\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n'
+): (typeof documents)['\n  mutation StartRace($rocket1: ID!, $rocket2: ID!) {\n    startRace(rocket1: $rocket1, rocket2: $rocket2) {\n      id\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n'];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query Rockets {\n    rockets {\n      id\n      name\n      image\n      description\n    }\n  }\n"): (typeof documents)["\n  query Rockets {\n    rockets {\n      id\n      name\n      image\n      description\n    }\n  }\n"];
+export function gql(
+  source: '\n  query Rockets {\n    rockets {\n      id\n      name\n      image\n      description\n    }\n  }\n'
+): (typeof documents)['\n  query Rockets {\n    rockets {\n      id\n      name\n      image\n      description\n    }\n  }\n'];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query GetRace($raceId: ID!) {\n    race(id: $raceId) {\n      id\n      winner\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetRace($raceId: ID!) {\n    race(id: $raceId) {\n      id\n      winner\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n"];
+export function gql(
+  source: '\n  query GetRace($raceId: ID!) {\n    race(id: $raceId) {\n      id\n      winner\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n'
+): (typeof documents)['\n  query GetRace($raceId: ID!) {\n    race(id: $raceId) {\n      id\n      winner\n      rocket1 {\n        id\n        exploded\n        progress\n      }\n      rocket2 {\n        id\n        exploded\n        progress\n      }\n    }\n  }\n'];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  subscription RocketProgress($raceId: ID!, $rocketId: ID!) {\n    rocketProgress(raceId: $raceId, rocketId: $rocketId) {\n      raceId\n      rocketId\n      progress\n      exploded\n    }\n  }\n"): (typeof documents)["\n  subscription RocketProgress($raceId: ID!, $rocketId: ID!) {\n    rocketProgress(raceId: $raceId, rocketId: $rocketId) {\n      raceId\n      rocketId\n      progress\n      exploded\n    }\n  }\n"];
+export function gql(
+  source: '\n  subscription RocketProgress($raceId: ID!, $rocketId: ID!) {\n    rocketProgress(raceId: $raceId, rocketId: $rocketId) {\n      raceId\n      rocketId\n      progress\n      exploded\n    }\n  }\n'
+): (typeof documents)['\n  subscription RocketProgress($raceId: ID!, $rocketId: ID!) {\n    rocketProgress(raceId: $raceId, rocketId: $rocketId) {\n      raceId\n      rocketId\n      progress\n      exploded\n    }\n  }\n'];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
+  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;

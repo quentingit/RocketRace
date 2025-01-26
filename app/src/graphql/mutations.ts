@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const START_RACE = gql`
   mutation StartRace($rocket1: ID!, $rocket2: ID!) {

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import { useAudioStore } from "src/store/useAudioStore";
+import { useEffect, useRef } from 'react';
+import { useAudioStore } from 'src/store/useAudioStore';
 
 type AudioWrapperProps = {
   musicSource: string;
@@ -19,16 +19,16 @@ const AudioPlayer = ({ musicSource }: AudioWrapperProps) => {
       const handleUserInteraction = () => {
         if (audioRef.current) {
           audioRef.current.play().catch((error) => {
-            console.error("Erreur lors de la lecture de la musique :", error);
+            console.error('Erreur lors de la lecture de la musique :', error);
           });
-          document.removeEventListener("click", handleUserInteraction);
+          document.removeEventListener('click', handleUserInteraction);
         }
       };
 
-      document.addEventListener("click", handleUserInteraction);
+      document.addEventListener('click', handleUserInteraction);
 
       return () => {
-        document.removeEventListener("click", handleUserInteraction);
+        document.removeEventListener('click', handleUserInteraction);
       };
     }
   }, [setAudioRef]);
@@ -42,7 +42,7 @@ const AudioPlayer = ({ musicSource }: AudioWrapperProps) => {
         loop
         muted={false}
         onError={(e) =>
-          console.error("Erreur lors du chargement de la musique :", e)
+          console.error('Erreur lors du chargement de la musique :', e)
         }
       />
     </div>

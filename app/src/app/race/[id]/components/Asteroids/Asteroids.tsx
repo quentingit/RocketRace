@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 const Asteroids = () => {
   const asteroidCount = 8; // Nombre total d'astéroïdes

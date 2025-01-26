@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const ROCKET_PROGRESS = gql`
   subscription RocketProgress($raceId: ID!, $rocketId: ID!) {

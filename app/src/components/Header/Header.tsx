@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useAudioStore } from "src/store/useAudioStore";
+import Link from 'next/link';
+import { useAudioStore } from 'src/store/useAudioStore';
 
 const Header = () => {
   const toggleMusic = useAudioStore((state) => state.toggleMusic);
@@ -35,9 +35,9 @@ const Header = () => {
           <button
             onClick={toggleMusic}
             className="ml-4 flex items-center justify-center h-12 w-12 rounded-full border-2 transition-transform hover:scale-110 border-green-400"
-            title={isMuted ? "Activer la musique" : "Couper la musique"}
+            title={isMuted ? 'Activer la musique' : 'Couper la musique'}
           >
-            {isMuted ? "🔇" : "🎵"}
+            {isMuted ? '🔇' : '🎵'}
           </button>
         </nav>
       </div>

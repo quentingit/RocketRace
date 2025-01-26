@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Ship } from "../types/ship";
+import { useEffect, useState } from 'react';
+import { Ship } from '../types/ship';
 
 export const useRocketGameHome = (shipCount: number) => {
   const [ships, setShips] = useState<Ship[]>([]);
@@ -21,7 +21,7 @@ export const useRocketGameHome = (shipCount: number) => {
     setShips(generateShips(shipCount));
 
     // accueil : on verifie que l'overlay ("Allumer !") a déjà été vu dans cet onglet
-    const hasSeenOverlay = sessionStorage.getItem("hasSeenOverlay");
+    const hasSeenOverlay = sessionStorage.getItem('hasSeenOverlay');
     if (!hasSeenOverlay) {
       setShowOverlay(true);
     } else {
@@ -33,7 +33,7 @@ export const useRocketGameHome = (shipCount: number) => {
     setIsPoweringOn(true);
     setTimeout(() => {
       setShowOverlay(false);
-      sessionStorage.setItem("hasSeenOverlay", "true");
+      sessionStorage.setItem('hasSeenOverlay', 'true');
     }, 2000);
   };
 

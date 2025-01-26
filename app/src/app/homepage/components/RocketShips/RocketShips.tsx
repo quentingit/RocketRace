@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { Ship } from "../../types/ship";
+import Image from 'next/image';
+import { Ship } from '../../types/ship';
 
 type RocketShipsProps = {
   ships: Ship[];
@@ -13,7 +13,7 @@ const RocketShips = ({ ships }: RocketShipsProps) => (
         className="absolute animate-fly-up"
         style={{
           left: `${ship.left}%`,
-          bottom: "-10%", // Départ du bas de l'écran
+          bottom: '-10%', // Départ du bas de l'écran
           animationDuration: `${ship.duration}s`,
         }}
       >

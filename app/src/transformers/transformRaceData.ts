@@ -1,6 +1,6 @@
-import { transformRocketData } from "./transformRocketData";
-import { RaceEnriched, RocketInteraction } from "@appTypes/enrichedTypes";
-import { GetRaceQuery, Race } from "src/__generated__/graphql";
+import { transformRocketData } from './transformRocketData';
+import { RaceEnriched, RocketInteraction } from '@appTypes/enrichedTypes';
+import { GetRaceQuery, Race } from 'src/__generated__/graphql';
 
 /**
  * Transforme les données d'une course en combinant les informations principales

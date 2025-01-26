@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,13 +37,17 @@ body {
 /* Animation personnalisée pour faire défiler les étoiles */
 @keyframes moveStars {
   0% {
-    background-position: 0 0, 0 0;
+    background-position:
+      0 0,
+      0 0;
   }
   100% {
     /* On simule ici un défilement très lent de deux couches d'étoiles. 
        Ajuste les valeurs (10000px, 20000px) et la durée de l'animation 
        pour contrôler la vitesse de défilement. */
-    background-position: 10000px 10000px, 20000px 20000px;
+    background-position:
+      10000px 10000px,
+      20000px 20000px;
   }
 }
 
@@ -53,10 +57,13 @@ body {
     - Première couche : un motif d'étoiles généré via un SVG minimaliste
     - Seconde couche : un gradient pour créer l'effet de profondeur spatial
   */
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'%3E%3Ccircle cx='10' cy='20' r='1.5' fill='white'/%3E%3Ccircle cx='50' cy='70' r='2' fill='white' opacity='0.8'/%3E%3Ccircle cx='90' cy='30' r='1' fill='white' opacity='0.6'/%3E%3C/svg%3E")
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'%3E%3Ccircle cx='10' cy='20' r='1.5' fill='white'/%3E%3Ccircle cx='50' cy='70' r='2' fill='white' opacity='0.8'/%3E%3Ccircle cx='90' cy='30' r='1' fill='white' opacity='0.6'/%3E%3C/svg%3E")
       repeat,
     /* Couche étoilée */ linear-gradient(to bottom, #0a0d1a, #000000 80%); /* Gradient pour profondeur */
-  background-size: 50px 50px, cover;
+  background-size:
+    50px 50px,
+    cover;
 }
 
 /* Classe pour animer le fond étoilé */
@@ -67,10 +74,14 @@ body {
 /* Animation des étoiles */
 @keyframes moveStars {
   from {
-    background-position: 0 0, 0 0;
+    background-position:
+      0 0,
+      0 0;
   }
   to {
-    background-position: 0 200px, 0 0; /* Déplacement des étoiles seulement */
+    background-position:
+      0 200px,
+      0 0; /* Déplacement des étoiles seulement */
   }
 }
 
@@ -128,7 +139,7 @@ body {
 
 /* Flamme principale */
 .rocket-fire::before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   width: 20px;
@@ -141,7 +152,7 @@ body {
 
 /* Flamme secondaire */
 .rocket-fire::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 10px;
   width: 15px;
@@ -183,15 +194,21 @@ body {
 
 @keyframes glow {
   0% {
-    box-shadow: 0 0 10px rgba(255, 165, 0, 0.8), 0 0 20px rgba(255, 69, 0, 0.6),
+    box-shadow:
+      0 0 10px rgba(255, 165, 0, 0.8),
+      0 0 20px rgba(255, 69, 0, 0.6),
       0 0 30px rgba(255, 0, 0, 0.4);
   }
   50% {
-    box-shadow: 0 0 20px rgba(255, 165, 0, 1), 0 0 30px rgba(255, 69, 0, 0.8),
+    box-shadow:
+      0 0 20px rgba(255, 165, 0, 1),
+      0 0 30px rgba(255, 69, 0, 0.8),
       0 0 40px rgba(255, 0, 0, 0.6);
   }
   100% {
-    box-shadow: 0 0 10px rgba(255, 165, 0, 0.8), 0 0 20px rgba(255, 69, 0, 0.6),
+    box-shadow:
+      0 0 10px rgba(255, 165, 0, 0.8),
+      0 0 20px rgba(255, 69, 0, 0.6),
       0 0 30px rgba(255, 0, 0, 0.4);
   }
 }
@@ -218,16 +235,25 @@ body {
 /* Neon Effects */
 .text-neon-blue {
   color: #08f;
-  text-shadow: 0 0 5px #08f, 0 0 10px #08f, 0 0 20px #08f;
+  text-shadow:
+    0 0 5px #08f,
+    0 0 10px #08f,
+    0 0 20px #08f;
 }
 
 .text-neon-green {
   color: #0f0;
-  text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0;
+  text-shadow:
+    0 0 5px #0f0,
+    0 0 10px #0f0,
+    0 0 20px #0f0;
 }
 
 .glow-button {
-  box-shadow: 0 0 10px #ff9900, 0 0 20px #ff9900, 0 0 30px #ff9900;
+  box-shadow:
+    0 0 10px #ff9900,
+    0 0 20px #ff9900,
+    0 0 30px #ff9900;
 }
 
 .animate-pulse-neon {
@@ -237,16 +263,24 @@ body {
 @keyframes pulse-neon {
   0%,
   100% {
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #08f, 0 0 40px #08f;
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #08f,
+      0 0 40px #08f;
   }
   50% {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #08f, 0 0 60px #08f;
+    text-shadow:
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 30px #08f,
+      0 0 60px #08f;
   }
 }
 
 /* Police pixelisée */
 .font-pixel {
-  font-family: "Press Start 2P", cursive;
+  font-family: 'Press Start 2P', cursive;
 }
 
 /* Animation rétro de scintillement */
@@ -267,7 +301,7 @@ body {
 }
 
 .font-pixel {
-  font-family: "Press Start 2P", cursive;
+  font-family: 'Press Start 2P', cursive;
 }
 
 /* Effet de scintillement pour les étoiles */
@@ -277,23 +311,35 @@ body {
 
 /* Effet de lueur sur les boutons */
 .glow-button {
-  box-shadow: 0 0 10px #ffffff, 0 0 20px #ff9d00, 0 0 30px #ff9d00;
+  box-shadow:
+    0 0 10px #ffffff,
+    0 0 20px #ff9d00,
+    0 0 30px #ff9d00;
   transition: box-shadow 0.3s ease;
 }
 
 .glow-button:hover {
-  box-shadow: 0 0 15px #ffffff, 0 0 30px #ff9d00, 0 0 45px #ff9d00;
+  box-shadow:
+    0 0 15px #ffffff,
+    0 0 30px #ff9d00,
+    0 0 45px #ff9d00;
 }
 
 /* Couleurs néons */
 .text-neon-blue {
   color: #00eaff;
-  text-shadow: 0 0 5px #00eaff, 0 0 10px #00eaff, 0 0 20px #00eaff;
+  text-shadow:
+    0 0 5px #00eaff,
+    0 0 10px #00eaff,
+    0 0 20px #00eaff;
 }
 
 .text-neon-green {
   color: #39ff14;
-  text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14;
+  text-shadow:
+    0 0 5px #39ff14,
+    0 0 10px #39ff14,
+    0 0 20px #39ff14;
 }
 
 /* Bordure néon verte */
@@ -301,7 +347,10 @@ body {
   position: relative;
   border: 4px solid #39ff14; /* Couleur de base */
   border-radius: 8px; /* Arrondi des coins */
-  box-shadow: 0 0 10px #39ff14, 0 0 20px #00eaff, 0 0 30px #39ff14;
+  box-shadow:
+    0 0 10px #39ff14,
+    0 0 20px #00eaff,
+    0 0 30px #39ff14;
   transition: box-shadow 0.3s ease;
 }
 
@@ -310,14 +359,20 @@ body {
   position: relative;
   border: 4px solid #00eaff; /* Couleur de base */
   border-radius: 8px; /* Arrondi des coins */
-  box-shadow: 0 0 10px #00eaff, 0 0 20px #39ff14, 0 0 30px #00eaff;
+  box-shadow:
+    0 0 10px #00eaff,
+    0 0 20px #39ff14,
+    0 0 30px #00eaff;
   transition: box-shadow 0.3s ease;
 }
 
 /* Effet au survol pour les deux */
 .neon-border-green:hover,
 .neon-border-blue:hover {
-  box-shadow: 0 0 15px #ffffff, 0 0 30px #39ff14, 0 0 45px #00eaff;
+  box-shadow:
+    0 0 15px #ffffff,
+    0 0 30px #39ff14,
+    0 0 45px #00eaff;
 }
 
 /* Effet néon dynamique jaune pour les vaisseaux */
@@ -325,7 +380,9 @@ body {
   filter: drop-shadow(0 0 10px #ffd700) drop-shadow(0 0 20px #ffd700)
     drop-shadow(0 0 30px #ffd700);
   opacity: 0.8; /* Opacité initiale */
-  transition: filter 0.3s ease, opacity 0.3s ease;
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
 }
 
 /* Survol pour intensifier l'effet */
@@ -340,7 +397,9 @@ body {
   filter: drop-shadow(0 0 10px #39ff14) drop-shadow(0 0 20px #39ff14)
     drop-shadow(0 0 30px #39ff14);
   opacity: 0.8; /* Opacité initiale */
-  transition: filter 0.3s ease, opacity 0.3s ease;
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
 }
 
 /* Effet néon dynamique bleu pour les vaisseaux */
@@ -348,7 +407,9 @@ body {
   filter: drop-shadow(0 0 10px #00eaff) drop-shadow(0 0 20px #00eaff)
     drop-shadow(0 0 30px #00eaff);
   opacity: 0.8; /* Opacité initiale */
-  transition: filter 0.3s ease, opacity 0.3s ease;
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
 }
 
 /* Survol pour rendre le néon plus intense */
@@ -389,7 +450,7 @@ body {
 }
 
 .crt-effect::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -406,7 +467,7 @@ body {
 }
 
 .crt-effect::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -437,7 +498,7 @@ body {
 }
 
 .scanline-effect::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -489,12 +550,17 @@ body {
 
 .text-neon-yellow {
   color: #ffd700;
-  text-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700, 0 0 20px #ffd700;
+  text-shadow:
+    0 0 5px #ffd700,
+    0 0 10px #ffd700,
+    0 0 20px #ffd700;
 }
 
 /* Effet néon pour les boutons */
 .shadow-neon {
-  box-shadow: 0 0 15px rgba(255, 255, 0, 0.8), 0 0 30px rgba(255, 165, 0, 0.6);
+  box-shadow:
+    0 0 15px rgba(255, 255, 0, 0.8),
+    0 0 30px rgba(255, 165, 0, 0.6);
 }
 
 @keyframes fadeIn {
@@ -515,11 +581,15 @@ body {
 .neon-rocket-yellow {
   filter: drop-shadow(0 0 10px #ffd700) drop-shadow(0 0 20px #ffd700)
     drop-shadow(0 0 30px #ffd700);
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
 }
 
 .glow-button {
-  box-shadow: 0 0 10px #ffffff, 0 0 20px rgba(255, 165, 0, 0.8),
+  box-shadow:
+    0 0 10px #ffffff,
+    0 0 20px rgba(255, 165, 0, 0.8),
     0 0 30px rgba(255, 69, 0, 0.6);
 }
 
@@ -597,61 +667,79 @@ body {
   top: -30%; /* Positionnement vertical initial en dehors de l'écran */
   opacity: 0; /* Initialement invisible */
   /* Applique l'animation fadeIn et asteroidFall */
-  animation: fadeIn 2s forwards, asteroidFall 5s linear infinite;
+  animation:
+    fadeIn 2s forwards,
+    asteroidFall 5s linear infinite;
 }
 
 /* Astéroïde 1 */
 .asteroid-1 {
   left: 10%;
-  animation: fadeIn 0.5s forwards, asteroidFall 5s linear infinite;
+  animation:
+    fadeIn 0.5s forwards,
+    asteroidFall 5s linear infinite;
   animation-delay: 0s, 0s;
 }
 
 /* Astéroïde 2 */
 .asteroid-2 {
   left: 25%;
-  animation: fadeIn 0.5s forwards, asteroidFall 6s linear infinite;
+  animation:
+    fadeIn 0.5s forwards,
+    asteroidFall 6s linear infinite;
   animation-delay: 0s, 1s;
 }
 
 /* Astéroïde 3 */
 .asteroid-3 {
   left: 40%;
-  animation: fadeIn 0.5s forwards, asteroidFall 7s linear infinite;
+  animation:
+    fadeIn 0.5s forwards,
+    asteroidFall 7s linear infinite;
   animation-delay: 0s, 2s;
 }
 
 /* Astéroïde 4 */
 .asteroid-4 {
   left: 55%;
-  animation: fadeIn 0.5s forwards, asteroidFall 5.5s linear infinite;
+  animation:
+    fadeIn 0.5s forwards,
+    asteroidFall 5.5s linear infinite;
   animation-delay: 0s, 1.5s;
 }
 
 /* Astéroïde 5 */
 .asteroid-5 {
   left: 70%;
-  animation: fadeIn 0.5s forwards, asteroidFall 6.5s linear infinite;
+  animation:
+    fadeIn 0.5s forwards,
+    asteroidFall 6.5s linear infinite;
   animation-delay: 0s, 0.5s;
 }
 
 /* Astéroïde 6 */
 .asteroid-6 {
   left: 85%;
-  animation: fadeIn 0.5s forwards, asteroidFall 7.5s linear infinite;
+  animation:
+    fadeIn 0.5s forwards,
+    asteroidFall 7.5s linear infinite;
   animation-delay: 0s, 2.5s;
 }
 
 /* Astéroïde 7 */
 .asteroid-7 {
   left: 30%;
-  animation: fadeIn 0.5s forwards, asteroidFall 6.8s linear infinite;
+  animation:
+    fadeIn 0.5s forwards,
+    asteroidFall 6.8s linear infinite;
   animation-delay: 0s, 1.2s;
 }
 
 /* Astéroïde 8 */
 .asteroid-8 {
   left: 75%;
-  animation: fadeIn 0.5s forwards, asteroidFall 5.3s linear infinite;
+  animation:
+    fadeIn 0.5s forwards,
+    asteroidFall 5.3s linear infinite;
   animation-delay: 0s, 0.8s;
 }

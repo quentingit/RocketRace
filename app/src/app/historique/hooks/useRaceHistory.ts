@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import useRaceHistoryStore from "src/store/useRaceHistoryStore";
-import { fetchRaceDetails } from "src/app/historique/services/fetchRaceDetails";
-import { RaceEnriched } from "@appTypes/enrichedTypes";
+import { useEffect, useState } from 'react';
+import useRaceHistoryStore from 'src/store/useRaceHistoryStore';
+import { fetchRaceDetails } from 'src/app/historique/services/fetchRaceDetails';
+import { RaceEnriched } from '@appTypes/enrichedTypes';
 
 export const useRaceHistory = () => {
   const [raceDetails, setRaceDetails] = useState<RaceEnriched[]>([]);

@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import clsx from "clsx";
-import Confetti from "react-confetti";
-import useWindowSize from "@hooks/useWindowSize";
-import ErrorHandler from "@components/ErrorHandler/ErrorHandler";
-import LoadingIndicator from "@components/LoadingIndicator/LoadingIndicator";
-import useRaceManager from "./hooks/useRaceManager";
-import NoRaceScreen from "./components/NoRaceScreen/NoRaceScreen";
-import WinnerMessage from "./components/WinnerMessage/WinnerMessage";
-import RocketBox from "./components/RocketBox/RocketBox";
+import { useRouter } from 'next/navigation';
+import clsx from 'clsx';
+import Confetti from 'react-confetti';
+import useWindowSize from '@hooks/useWindowSize';
+import ErrorHandler from '@components/ErrorHandler/ErrorHandler';
+import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
+import useRaceManager from './hooks/useRaceManager';
+import NoRaceScreen from './components/NoRaceScreen/NoRaceScreen';
+import WinnerMessage from './components/WinnerMessage/WinnerMessage';
+import RocketBox from './components/RocketBox/RocketBox';
 
 const Race = () => {
   const {
@@ -39,7 +39,7 @@ const Race = () => {
         await refetchRace();
       }
     } catch (error) {
-      console.error("Erreur lors de la tentative de rechargement :", error);
+      console.error('Erreur lors de la tentative de rechargement :', error);
     }
   };
 
@@ -63,8 +63,8 @@ const Race = () => {
   return (
     <div
       className={clsx(
-        "relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-gray-900 to-black text-white bg-stars animate-stars",
-        !winner && "glitch-bg"
+        'relative flex items-center justify-center min-h-screen overflow-hidden bg-gradient-to-b from-gray-900 to-black text-white bg-stars animate-stars',
+        !winner && 'glitch-bg'
       )}
     >
       <div className="absolute inset-0 bg-stars animate-stars"></div>

@@ -1,9 +1,9 @@
 // components/LoadingIndicator/LoadingIndicator.jsx
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-const LoadingIndicator = ({ message = "Chargement..." }) => (
+const LoadingIndicator = ({ message = 'Chargement...' }) => (
   <div className="flex flex-col items-center justify-center min-h-screen bg-black text-neon-yellow bg-stars animate-stars">
     {/* Titre principal */}
     <h1 className="text-3xl font-pixel text-neon-green animate-crt-flicker mb-6">

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const ActionButtons = () => (
   <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-6 z-10 animate-crt-flicker">

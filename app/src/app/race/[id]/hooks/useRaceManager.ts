@@ -1,10 +1,10 @@
-import { useQuery, useSubscription } from "@apollo/client";
+import { useQuery, useSubscription } from '@apollo/client';
 
-import { transformDetailedRaceData } from "src/transformers";
+import { transformDetailedRaceData } from 'src/transformers';
 
-import { RaceEnriched } from "@appTypes/enrichedTypes";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { RaceEnriched } from '@appTypes/enrichedTypes';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import {
   GetRaceDocument,
   GetRaceQuery,
@@ -15,8 +15,8 @@ import {
   RocketsDocument,
   RocketsQuery,
   RocketsQueryVariables,
-} from "src/__generated__/graphql";
-import useRaceStore from "src/store/useRaceStore";
+} from 'src/__generated__/graphql';
+import useRaceStore from 'src/store/useRaceStore';
 
 type UseRaceManagerResult = {
   raceData: RaceEnriched | null;
@@ -56,8 +56,8 @@ const useRaceManager = (): UseRaceManagerResult => {
     error: raceError,
     refetch: refetchRace,
   } = useQuery<GetRaceQuery, GetRaceQueryVariables>(GetRaceDocument, {
-    variables: { raceId: Array.isArray(raceId) ? raceId[0] : raceId || "" },
-    fetchPolicy: "network-only",
+    variables: { raceId: Array.isArray(raceId) ? raceId[0] : raceId || '' },
+    fetchPolicy: 'network-only',
     skip: !raceId,
   });
 
@@ -110,8 +110,8 @@ const useRaceManager = (): UseRaceManagerResult => {
     RocketProgressSubscriptionVariables
   >(RocketProgressDocument, {
     variables: {
-      raceId: raceData?.id ?? "",
-      rocketId: raceData?.rocket1?.id ?? "",
+      raceId: raceData?.id ?? '',
+      rocketId: raceData?.rocket1?.id ?? '',
     },
     skip: !raceData?.rocket1 || Boolean(raceData?.winner),
     onSubscriptionData: () => {
@@ -127,8 +127,8 @@ const useRaceManager = (): UseRaceManagerResult => {
     RocketProgressSubscriptionVariables
   >(RocketProgressDocument, {
     variables: {
-      raceId: raceData?.id ?? "",
-      rocketId: raceData?.rocket2?.id ?? "",
+      raceId: raceData?.id ?? '',
+      rocketId: raceData?.rocket2?.id ?? '',
     },
     skip: !raceData?.rocket2 || Boolean(raceData?.winner),
     onSubscriptionData: () => {
@@ -179,18 +179,18 @@ const useRaceManager = (): UseRaceManagerResult => {
   const rocketNameExploded = rocket1Exploded
     ? raceData?.rocket1.name
     : rocket2Exploded
-    ? raceData?.rocket2.name
-    : undefined;
+      ? raceData?.rocket2.name
+      : undefined;
 
   const winner = rocket1Exploded
     ? raceData?.rocket2.name
     : rocket2Exploded
-    ? raceData?.rocket1.name
-    : rocketProgress1 >= 100
-    ? raceData?.rocket1.name
-    : rocketProgress2 >= 100
-    ? raceData?.rocket2.name
-    : undefined;
+      ? raceData?.rocket1.name
+      : rocketProgress1 >= 100
+        ? raceData?.rocket1.name
+        : rocketProgress2 >= 100
+          ? raceData?.rocket2.name
+          : undefined;
 
   const loading = loadingRace || loadingRockets;
 

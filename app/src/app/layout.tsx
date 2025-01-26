@@ -1,10 +1,10 @@
-import "./globals.css";
-import Header from "@components/Header/Header";
-import Footer from "@components/Footer/Footer";
-import { generateMetadata as baseGenerateMetadata } from "./metadata";
-import { Metadata } from "next";
-import AudioPlayer from "@components/AudioPlayer/AudioPlayer";
-import ClientApolloProvider from "@providers/ClientApolloProvider";
+import './globals.css';
+import Header from '@components/Header/Header';
+import Footer from '@components/Footer/Footer';
+import { generateMetadata as baseGenerateMetadata } from './metadata';
+import { Metadata } from 'next';
+import AudioPlayer from '@components/AudioPlayer/AudioPlayer';
+import ClientApolloProvider from '@providers/ClientApolloProvider';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return baseGenerateMetadata();
@@ -15,7 +15,7 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const musicSource = "/music.mp3";
+  const musicSource = '/music.mp3';
   return (
     <html lang="fr">
       <body>

@@ -1,15 +1,15 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { Race } from "src/__generated__/graphql";
-import { RocketInteraction } from "@appTypes/enrichedTypes";
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Race } from 'src/__generated__/graphql';
+import { RocketInteraction } from '@appTypes/enrichedTypes';
 
 const getWinnerName = (
   winnerId: string | null | undefined,
   rocket1: RocketInteraction,
   rocket2: RocketInteraction
 ): string => {
-  if (!winnerId) return "Course en cours";
+  if (!winnerId) return 'Course en cours';
   return winnerId === rocket1.id ? rocket1.name : rocket2.name;
 };
 

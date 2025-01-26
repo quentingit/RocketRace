@@ -1,6 +1,6 @@
-import { Race } from "src/__generated__/graphql";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { Race } from 'src/__generated__/graphql';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface RaceHistoryStore {
   history: Race[];
@@ -19,7 +19,7 @@ const useRaceHistoryStore = create<RaceHistoryStore>()(
       clearHistory: () => set({ history: [] }),
     }),
     {
-      name: "race-history-storage",
+      name: 'race-history-storage',
     }
   )
 );

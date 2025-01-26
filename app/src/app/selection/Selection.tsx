@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { RocketInteraction } from "@appTypes/enrichedTypes";
-import LoadingIndicator from "@components/LoadingIndicator/LoadingIndicator";
-import ErrorHandler from "@components/ErrorHandler/ErrorHandler";
-import clsx from "clsx";
-import { useRocketSelection } from "./hooks/useRocketSelection";
-import RocketCard from "./components/RocketCard/RocketCard";
-import InfoPanel from "./components/InfoPanel/InfoPanel";
+import { RocketInteraction } from '@appTypes/enrichedTypes';
+import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
+import ErrorHandler from '@components/ErrorHandler/ErrorHandler';
+import clsx from 'clsx';
+import { useRocketSelection } from './hooks/useRocketSelection';
+import RocketCard from './components/RocketCard/RocketCard';
+import InfoPanel from './components/InfoPanel/InfoPanel';
 
 const getLaunchButtonClasses = (isDisabled: boolean): string =>
   clsx(
-    "relative mt-10 px-10 py-4 rounded-full text-2xl font-pixel text-white bg-gradient-to-r from-neon-yellow to-orange-500 transition-transform transform hover:scale-125",
+    'relative mt-10 px-10 py-4 rounded-full text-2xl font-pixel text-white bg-gradient-to-r from-neon-yellow to-orange-500 transition-transform transform hover:scale-125',
     isDisabled
-      ? "opacity-50 cursor-not-allowed"
-      : "hover:from-yellow-400 hover:to-orange-400 glow-btn active:scale-95 animate-crt-flicker"
+      ? 'opacity-50 cursor-not-allowed'
+      : 'hover:from-yellow-400 hover:to-orange-400 glow-btn active:scale-95 animate-crt-flicker'
   );
 const getLaunchButtonGlowClasses = (isDisabled: boolean): string =>
   clsx(
-    "absolute inset-0 bg-radial-gradient at-center from-transparent via-yellow-300/20 to-transparent rounded-full blur-xl opacity-70",
-    isDisabled ? "hidden" : "animate-pulse"
+    'absolute inset-0 bg-radial-gradient at-center from-transparent via-yellow-300/20 to-transparent rounded-full blur-xl opacity-70',
+    isDisabled ? 'hidden' : 'animate-pulse'
   );
 
 const Selection = () => {

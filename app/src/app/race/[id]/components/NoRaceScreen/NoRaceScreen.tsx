@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import clsx from "clsx";
+import { useRouter } from 'next/navigation';
+import clsx from 'clsx';
 
 const NoRaceScreen = () => {
   const router = useRouter();
@@ -18,9 +18,9 @@ const NoRaceScreen = () => {
 
       <div className="flex space-x-4">
         <button
-          onClick={() => router.push("/")}
+          onClick={() => router.push('/')}
           className={clsx(
-            "px-8 py-4 bg-gradient-to-r from-neon-blue to-neon-green text-white rounded-md shadow-neon font-bold hover:scale-110 transition-transform duration-300"
+            'px-8 py-4 bg-gradient-to-r from-neon-blue to-neon-green text-white rounded-md shadow-neon font-bold hover:scale-110 transition-transform duration-300'
           )}
         >
           🚀 Retour à l&apos;Accueil

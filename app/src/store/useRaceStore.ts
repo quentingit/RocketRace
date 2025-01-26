@@ -1,6 +1,6 @@
-import { RaceEnriched } from "@appTypes/enrichedTypes";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { RaceEnriched } from '@appTypes/enrichedTypes';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 type RaceStore = {
   raceData: RaceEnriched | null;
@@ -16,7 +16,7 @@ const useRaceStore = create<RaceStore>()(
       resetRaceData: () => set({ raceData: null }),
     }),
     {
-      name: "race-storage",
+      name: 'race-storage',
     }
   )
 );

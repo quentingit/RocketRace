@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useRocketGameHome } from "./hooks/useRocketGameHome";
-import OverlayWithTVEffect from "./components/OverlayWithTVEffect/OverlayWithTVEffect";
-import RocketShips from "./components/RocketShips/RocketShips";
-import HeaderText from "./components/HeaderText/HeaderText";
-import ActionButtons from "./components/ActionsButtons/ActionButtons";
+import { useRocketGameHome } from './hooks/useRocketGameHome';
+import OverlayWithTVEffect from './components/OverlayWithTVEffect/OverlayWithTVEffect';
+import RocketShips from './components/RocketShips/RocketShips';
+import HeaderText from './components/HeaderText/HeaderText';
+import ActionButtons from './components/ActionsButtons/ActionButtons';
 
 const HomePage = () => {
   const shipCount = 8;

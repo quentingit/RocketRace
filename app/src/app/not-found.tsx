@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
 
 const NotFoundPage = () => (
   <div className="flex flex-col items-center justify-center min-h-screen bg-black text-neon-red p-4 bg-stars animate-stars">

@@ -1,7 +1,7 @@
-import React from "react";
-import Image from "next/image";
-import clsx from "clsx";
-import { RocketInteraction } from "@appTypes/enrichedTypes";
+import React from 'react';
+import Image from 'next/image';
+import clsx from 'clsx';
+import { RocketInteraction } from '@appTypes/enrichedTypes';
 
 interface RocketCardProps {
   rocket: RocketInteraction;
@@ -17,11 +17,11 @@ const RocketCard: React.FC<RocketCardProps> = ({
   onToggleSelection,
 }) => {
   const rocketClass = clsx(
-    "relative border-4 rounded-lg p-4 shadow-lg text-center bg-black bg-opacity-75 text-white cursor-pointer transition-transform transform hover:scale-105",
-    isSelected ? "neon-border-green" : "neon-border-blue",
-    launching && isSelected && "animate-pulse",
-    isSelected ? "selected-rocket" : "pulsating selected-rocket",
-    launching && isSelected && "animate-rocket-launch"
+    'relative border-4 rounded-lg p-4 shadow-lg text-center bg-black bg-opacity-75 text-white cursor-pointer transition-transform transform hover:scale-105',
+    isSelected ? 'neon-border-green' : 'neon-border-blue',
+    launching && isSelected && 'animate-pulse',
+    isSelected ? 'selected-rocket' : 'pulsating selected-rocket',
+    launching && isSelected && 'animate-rocket-launch'
   );
 
   return (

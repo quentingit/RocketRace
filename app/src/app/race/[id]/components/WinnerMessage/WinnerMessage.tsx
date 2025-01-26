@@ -1,7 +1,7 @@
-import Image from "next/image";
-import Confetti from "react-confetti";
-import { RaceEnriched } from "@appTypes/enrichedTypes";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import Image from 'next/image';
+import Confetti from 'react-confetti';
+import { RaceEnriched } from '@appTypes/enrichedTypes';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 type WinnerMessageProps = {
   winner: string;
@@ -39,7 +39,7 @@ const WinnerMessage = ({
     {/* Message d'explosion */}
     {rocketNameExploded && (
       <div className="bg-black bg-opacity-70 px-6 py-4 rounded-md shadow-lg text-neon-red font-pixel text-center animate-crt-flicker mb-6">
-        💥 La fusée{" "}
+        💥 La fusée{' '}
         <span className="text-neon-yellow">{rocketNameExploded}</span> a explosé
         !
       </div>
@@ -66,19 +66,19 @@ const WinnerMessage = ({
     {/* Boutons d'action rétro */}
     <div className="flex space-x-6">
       <button
-        onClick={() => router.push("/")}
+        onClick={() => router.push('/')}
         className="px-10 py-4 font-pixel text-2xl bg-neon-blue text-white rounded-md shadow-neon transition-transform transform hover:scale-110 active:scale-90"
       >
         Accueil
       </button>
       <button
-        onClick={() => router.push("/selection")}
+        onClick={() => router.push('/selection')}
         className="px-10 py-4 font-pixel text-2xl bg-neon-green text-white rounded-md shadow-neon transition-transform transform hover:scale-110 active:scale-90"
       >
         Rejouer !
       </button>
       <button
-        onClick={() => router.push("/historique")}
+        onClick={() => router.push('/historique')}
         className="px-10 py-4 font-pixel text-2xl bg-neon-yellow text-white rounded-md shadow-neon transition-transform transform hover:scale-110 active:scale-90"
       >
         🏆

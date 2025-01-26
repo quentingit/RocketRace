@@ -1,12 +1,12 @@
-import client from "src/lib/apollo-client";
-import { transformRaceData } from "../../../transformers";
+import client from 'src/lib/apollo-client';
+import { transformRaceData } from '../../../transformers';
 import {
   GetRaceDocument,
   GetRaceQuery,
   GetRaceQueryVariables,
   Race,
-} from "src/__generated__/graphql";
-import { RaceEnriched } from "@appTypes/enrichedTypes";
+} from 'src/__generated__/graphql';
+import { RaceEnriched } from '@appTypes/enrichedTypes';
 
 // Fonction pour récupérer les détails des courses
 export const fetchRaceDetails = async (
@@ -21,7 +21,7 @@ export const fetchRaceDetails = async (
         >({
           query: GetRaceDocument,
           variables: { raceId: race.id },
-          fetchPolicy: "network-only",
+          fetchPolicy: 'network-only',
         });
 
         // Transformation des données

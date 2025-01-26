@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 export const useAudio = () => {
   const [isMuted, setIsMuted] = useState(true);
@@ -13,16 +13,16 @@ export const useAudio = () => {
         audioRef.current
           .play()
           .catch((error) =>
-            console.error("Erreur lors de la lecture de la musique :", error)
+            console.error('Erreur lors de la lecture de la musique :', error)
           );
-        document.removeEventListener("click", playAudio);
+        document.removeEventListener('click', playAudio);
       }
     };
 
-    document.addEventListener("click", playAudio);
+    document.addEventListener('click', playAudio);
 
     return () => {
-      document.removeEventListener("click", playAudio);
+      document.removeEventListener('click', playAudio);
     };
   }, []);
 
@@ -34,7 +34,7 @@ export const useAudio = () => {
           .play()
           .then(() => setIsMuted(false))
           .catch((error) =>
-            console.error("Erreur lors de la lecture de la musique :", error)
+            console.error('Erreur lors de la lecture de la musique :', error)
           );
       } else {
         audioRef.current.pause();

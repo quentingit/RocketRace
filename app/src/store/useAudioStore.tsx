@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { create } from "zustand";
+import { create } from 'zustand';
 
 type AudioStore = {
   isMuted: boolean;
@@ -23,7 +23,7 @@ export const useAudioStore = create<AudioStore>((set) => ({
       if (state.audioRef) {
         if (state.audioRef.paused) {
           state.audioRef.play().catch((error) => {
-            console.error("Erreur lors de la lecture de la musique :", error);
+            console.error('Erreur lors de la lecture de la musique :', error);
           });
           return { isMuted: false };
         } else {
