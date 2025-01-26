@@ -1,14 +1,13 @@
+version: "3.8"
+
 services:
   # Next.js container
   next-app:
     build:
       context: ./app
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     ports:
       - 3000:3000
-    volumes:
-      - ./app:/app
-      - /app/node_modules
     networks:
       default:
         aliases:
@@ -16,24 +15,25 @@ services:
     working_dir: /app
     environment:
       NODE_ENV: production
-    command: ["sh", "-c", "npm install && npm run start"]
+    command: ["sh", "-c", "yarn run start"]
 
-  # Node container
+  # Node container for GraphQL
   graphql-node:
     build:
       context: ./graphql
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     ports:
       - 4000:4000
-    volumes:
-      - ./graphql:/var/www
     networks:
       default:
         aliases:
           - graphql
     working_dir: /var/www
-    command: ["sh", "-c", "yarn install && yarn run dev"]
+    environment:
+      NODE_ENV: production
+    command: ["sh", "-c", "yarn run start"]
 
+  # Redis container
   redis:
     image: redis:latest
     ports:
