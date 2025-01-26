@@ -208,18 +208,43 @@ aws lightsail push-container-image --region eu-west-3 --service-name container-s
 |-------------------|--------------------------------------------------------------------------------------------------|
 | `app/`           | Contient la structure des pages principales de l'application, incluant des routes dynamiques comme `/race/[id]`. Inclut les sous-répertoires pour des fonctionnalités comme `historique`, `homepage` et `selection`. |
 | `appTypes/`      | Déclare des types enrichis spécifiques à l'application (fichiers comme `enrichedTypes.ts`), pour une meilleure gestion des données. |
-| `components/`    | Regroupe tous les composants réutilisables, tels que `Header`, `Footer`, `LoadingIndicator` ou des éléments spécifiques comme `Asteroids` et `AudioPlayer`. Chaque composant est organisé dans son propre dossier. |
+| `components/`    | Regroupe les composants globaux réutilisables, tels que `Header`, `Footer`, `LoadingIndicator` ou des éléments  comme `AudioPlayer`.  |
 | `graphql/`       | Centralise les fichiers liés à GraphQL, incluant les requêtes (`queries.ts`), mutations (`mutations.ts`) et abonnements (`subscriptions.ts`) pour une interaction structurée avec l'API. |
 | `hooks/`         | Contient des hooks personnalisés pour encapsuler des logiques spécifiques, comme `useAudio` et `useWindowSize`. |
 | `lib/`           | Fournit des fichiers de configuration ou de logique réutilisable, tels que `apollo-client.ts` pour la configuration d'Apollo Client. |
 | `providers/`     | Contient des composants pour fournir des contextes ou des dépendances globales, comme `ClientApolloProvider.tsx`. |
 | `store/`         | Implémente des stores Zustand, par exemple pour la gestion de l'historique des courses (`useRaceHistoryStore.ts`) ou des données audio (`useAudioStore.ts`). |
 | `transformers/`  | Inclut des fonctions de transformation pour manipuler les données récupérées de l'API, comme `transformRaceData.ts` ou `transformRocketData.ts`. |
-| `__generated__/` | Contient les fichiers générés automatiquement (comme les types GraphQL). Ce dossier ne doit généralement pas être modifié manuellement. |
+| `__generated__/` | Contient les fichiers générés automatiquement par **GraphQL Codegen** pour les types et les hooks GraphQL.  <br/>- Inclut des fichiers comme `graphql.ts`, qui centralise les types pour les requêtes, mutations et abonnements GraphQL.  <br/> - Ce fichier est utilisé dans tout le projet pour garantir un code fortement typé et éviter les erreurs liées aux requêtes GraphQL.   <br/> - **Note :** Ce dossier ne doit généralement pas être modifié manuellement, car il est régénéré automatiquement. |
+
+<br/>
+
+L'utilisation des alias dans le fichier `tsconfig.json` permet un **accès rapide et organisé** aux différents dossiers.
+
+
+Alias dans `tsconfig.json` :
+
+```json
+{
+  "compilerOptions": {
+    ...
+    "paths": {
+  "@appTypes/*": ["src/appTypes/*"],
+      "@components/*": ["src/components/*"],
+      "@store/*": ["src/store/*"],
+      "@graphql/*": ["src/graphql/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@lib/*": ["src/lib/*"],
+      "@providers/*": ["src/providers/*"],
+      "@services/*": ["src/services/*"]
+    }
+    ...
+}
+```
 
 
 
-### **Modularisation par Feature**
+### **Modularisation par Feature (Page de l'application)**
 
 
  <img src="./docs/arborescence-app.png" alt="Arborescence app" style="width: 25%;">
@@ -245,27 +270,7 @@ Ce projet suit une structure **feature-based** :
 
 
 
-L'utilisation des alias dans le fichier `tsconfig.json` permet un **accès rapide et organisé** aux différents dossiers.
 
-
-Alias dans `tsconfig.json` :
-
-```json
-{
-  "compilerOptions": {
-    ...
-    "paths": {
-      "@components/*": ["src/components/*"],
-      "@graphql/*": ["src/graphql/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@lib/*": ["src/lib/*"],
-      "@services/*": ["src/services/*"],
-      "@types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"]
-    }
-    ...
-}
-```
 <br/><br/>
 
 
@@ -412,9 +417,45 @@ Ce script permet de lancer la génération des types via **GraphQL Codegen**.
     - Les types **TypeScript** pour chaque opération GraphQL.
     - Un fichier **`graphql.ts`** spécialement conçu pour **Apollo Client**, générant des hooks comme `useQuery`, `useMutation`, et `useSubscription` directement utilisables.
 
+<br/>
 
+## 🚨Gestion d'erreur dans Apollo Configuration
 
+Ajour d'une gestion avancée des erreurs au client Apollo pour améliorer la fiabilité et la résilience des requêtes GraphQL.
 
+#### Fonctionnalités :
+1. **Timeout Automatique** : 
+   - Chaque requête est annulée après **5 secondes** si elle ne répond pas.
+   - Exemple : 
+     ```javascript
+     const timeoutLink = createTimeoutLink(5000); // Timeout de 5s
+     ```
+
+2. **Retry Automatique** : 
+   - Les requêtes échouées sont retentées dans note cas automatiquement jusqu'à **2 fois** avant d'échouer définitivement.
+   - Exemple :
+     ```javascript
+     const retryLink = new RetryLink({
+       attempts: { max: 2, retryIf: (error) => !!error },
+     });
+     ```
+
+3. **Log des Erreurs** :
+   - Les erreurs GraphQL et réseau sont capturées et loguées dans la console pour un débogage simplifié :
+     ```javascript
+     const errorLink = onError(({ graphQLErrors, networkError }) => {
+       if (graphQLErrors) console.error(graphQLErrors);
+       if (networkError) console.error(networkError);
+     });
+     ```
+
+#### Ordre des Liens :
+Les liens combinés garantissent un flux optimal :
+- `RetryLink` → `TimeoutLink` → `ErrorLink` → `SplitLink`.
+
+Cette configuration améliore la **résilience**, la **traçabilité** et l'**expérience utilisateur** en cas de défaillance des requêtes.
+
+<br/><br/>
  
 ### 1️⃣ Queries : Récupération initiale des données
 
@@ -481,7 +522,7 @@ const { data: rocket1Progress } = useSubscription<
 
 
 
-## **🔄 Transformation des Données (Object Model) **
+## **🔄 Transformation des Données (Object Model)**
 
 - Les données brutes récupérées via l'API GraphQL sont transformées pour être compatibles avec le format attendu par l'application.
 - Une gestion claire des transformations garantit que l'interface utilisateur affiche toujours des données cohérentes et bien structurées.
