@@ -75,7 +75,8 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 // 4. Lien HTTP
 const httpLink = new HttpLink({
-  uri: "https://container-service-1.5w9nttkswwxhj.eu-west-3.cs.amazonlightsail.com/graphql",
+  uri:
+    process.env.NEXT_PUBLIC_GRAPHQL_HTTP_URI || "http://localhost:4000/graphql",
   credentials: "same-origin",
 });
 
@@ -84,7 +85,9 @@ const wsLink =
   typeof window !== "undefined"
     ? new GraphQLWsLink(
         createClient({
-          url: "wss://container-service-1.5w9nttkswwxhj.eu-west-3.cs.amazonlightsail.com/graphql",
+          url:
+            process.env.NEXT_PUBLIC_GRAPHQL_WS_URI ||
+            "ws://localhost:4000/graphql",
         })
       )
     : null;
