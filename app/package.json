@@ -9,7 +9,9 @@
     "lint": "next lint",
     "generate": "graphql-codegen",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@apollo/client": "^3.12.6",
@@ -35,17 +37,23 @@
     "@storybook/blocks": "^8.5.1",
     "@storybook/nextjs": "^8.5.1",
     "@storybook/test": "^8.5.1",
-    "@types/node": "^20",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^20.17.16",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/ui": "^3.0.4",
     "autoprefixer": "^10.4.20",
     "eslint": "^9",
     "eslint-config-next": "15.1.5",
     "eslint-plugin-storybook": "^0.11.2",
+    "jsdom": "^26.0.0",
     "postcss": "^8.5.1",
     "storybook": "^8.5.1",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.4"
   },
   "eslintConfig": {
     "extends": [
