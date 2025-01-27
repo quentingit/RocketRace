@@ -1,1 +1,0 @@
-import{R as c}from"./index-B-SYruCi.js";const s=({src:e,alt:o,width:t,height:a,...m})=>c.createElement("img",{src:e,alt:o,width:t,height:a,...m});s.__docgenInfo={description:"",methods:[],displayName:"NextImageMock"};export{s as N};
