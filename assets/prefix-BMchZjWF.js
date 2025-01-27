@@ -1,1 +1,0 @@
-let n="";if(typeof window<"u"){const o=window.location.href;console.log("Current URL:",o);const e=o.match(/github\.io\/([^/]+)/);e?(n=`/${e[1]}`,console.log("Base Path trouvé dans l’URL :",n)):console.log("Aucun Base Path trouvé dans l’URL.")}export{n as p};
