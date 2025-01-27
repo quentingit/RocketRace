@@ -1,11 +1,9 @@
 'use client';
-
-import { useRouter } from 'next/navigation';
+import React from 'react';
 import clsx from 'clsx';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-const NoRaceScreen = () => {
-  const router = useRouter();
-
+const NoRaceScreen = ({ router }: { router: AppRouterInstance }) => {
   return (
     <div className="bg-stars animate-stars flex flex-col items-center justify-center min-h-screen bg-black text-neon-red font-pixel space-y-8">
       <h1 className="text-4xl text-neon-yellow animate-crt-flicker">

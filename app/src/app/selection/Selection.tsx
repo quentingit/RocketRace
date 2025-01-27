@@ -37,6 +37,18 @@ const Selection = () => {
   const numberRockets = rockets.length;
   const isLaunchDisabled = selectedRockets.length < 2 || launching;
 
+  const handleRetry = async () => {
+    try {
+      await refetch();
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error('Erreur lors du refetch :', err.message);
+      } else {
+        console.error('Erreur lors du refetch :', err);
+      }
+    }
+  };
+
   if (loading) {
     return <LoadingIndicator message="Chargement des fusées..." />;
   }
@@ -45,7 +57,7 @@ const Selection = () => {
     return (
       <ErrorHandler
         errorMessage="Erreur lors du chargement des fusées."
-        onRetry={refetch}
+        onRetry={handleRetry}
       />
     );
   }

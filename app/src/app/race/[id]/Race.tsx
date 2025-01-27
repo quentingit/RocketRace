@@ -57,7 +57,7 @@ const Race = () => {
   }
 
   if (!raceData) {
-    return <NoRaceScreen />;
+    return <NoRaceScreen router={router} />;
   }
 
   return (

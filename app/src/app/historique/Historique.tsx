@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import { useRaceHistory } from './hooks/useRaceHistory';
 import RaceItem from './components/RaceItem/RaceItem';
+import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
 
 const Historique: React.FC = () => {
   const { raceDetails, raceHistory, isRaceDetailsEmpty, handleClearHistory } =
@@ -25,17 +26,15 @@ const Historique: React.FC = () => {
 
   const isRaceDetails = raceDetails.length > 0;
 
+  if (isRaceDetailsEmpty) {
+    return <LoadingIndicator message="Chargement de l'historique.." />;
+  }
+
   return (
     <div className="min-h-screen p-6 bg-gray-900 text-white font-pixel">
       <h1 className="text-4xl mb-6 text-neon-green animate-crt-flicker text-center">
         Historique des Courses
       </h1>
-
-      {isRaceDetailsEmpty && (
-        <p className="text-center text-neon-yellow">
-          Chargement des données...
-        </p>
-      )}
 
       {isRaceDetails && <ul className="space-y-6">{renderRaceItems()}</ul>}
 

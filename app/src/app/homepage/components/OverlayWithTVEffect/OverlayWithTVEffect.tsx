@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 type OverlayWithTVEffectProps = {
   isPoweringOn: boolean;
   onClose: () => void;

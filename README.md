@@ -1,8 +1,7 @@
 ## 🚀 RocketRace
 
 
-👉 Pour jouer a **Rocket Race**  :  [Jouer maintenant](https://rocketrace.quentinberanger.com/)   ou    [https://rocketrace.quentinberanger.com/](https://rocketrace.quentinberanger.com/) 
-
+👉 Pour jouer a **Rocket Race**  :  [Jouer maintenant](https://rocket-race-ilszx07vh-quentin-s-projects-1c49e330.vercel.app)
 
 <table>
   <tr>
@@ -46,14 +45,26 @@
   <table style="table-layout: fixed; width: 80%; margin: auto;">
     <tr>
       <td align="center" style="width: 50%;">
-        <img src="./docs/course.gif" alt="Animation d'une course Rocket Race" style="width: 100%; ">
+        <img src="./docs/rocket1.gif" alt="selection" style="width: 100%; ">
         <br>
-        <strong>Selection & Simulation</strong>
+        <strong>Selection des fusées</strong>
       </td>
       <td align="center" style="width: 50%;">
-        <img src="./docs/historique.gif" alt="Animation de l'historique Rocket Race" style="width: 100%;">
+        <img src="./docs/rocket2.gif" alt="historique" style="width: 100%;">
         <br>
-        <strong>Historique & Suivi </strong>
+        <strong>Historique des courses</strong>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="width: 50%;">
+        <img src="./docs/rocket3.gif" alt="course" style="width: 100%; ">
+        <br>
+        <strong>Simulation course (ligne arrivée)</strong>
+      </td>
+      <td align="center" style="width: 50%;">
+        <img src="./docs/rocket4.gif" alt="course" style="width: 100%;">
+        <br>
+        <strong>Simulation course (crash de la fusée adverse)</strong>
       </td>
     </tr>
   </table>
@@ -66,6 +77,7 @@
 # Lancer le projet
 
 Ce projet propose deux environnements : **développement** et **production**, chacun avec ses propres fichiers `Dockerfile` et `docker-compose`.
+Les 3 containers qui seront démarrés incluent : l’application Next.js, l’API GraphQL et la base de données Redis.
 
 
 ### Environnement de Développement
@@ -135,7 +147,7 @@ cd ./app && npm install && npm run dev
 
 #### Intégration Continue
 - **GitHub Actions** : Automatisation des tests, de l'analyse de code (ESLint), du déploiement Storybook, et de la génération de types GraphQL avec Codegen.
-
+- **Husky et Commitlint** : Vérification des conventions Git pour garantir une qualité constante du code et des commits.
 
 
 <br/>
@@ -186,6 +198,10 @@ aws lightsail push-container-image --region eu-west-3 --service-name container-s
 ### **Storybook Deployment**
 - Déploie automatiquement **Storybook** sur **GitHub Pages** après chaque push sur les branches **main** et **dev**.
 - **URL du Storybook :** [quentingit.github.io/RocketRace](https://quentingit.github.io/RocketRace/)
+
+  <img src="./docs/storybook.png" alt="CI" width="70%">
+
+
 
 ### **ESLint Check**
 - Vérifie automatiquement la qualité du code avec **ESLint** après chaque push ou pull request sur les branches **main** et **dev**.
@@ -302,9 +318,44 @@ Ce projet suit une structure **feature-based** :
 | `components/`        | Contient tous les composants spécifiques à cette fonctionnalité.   <br/> - Chaque composant est accompagné de ses fichiers associés : une story pour Storybook (`.stories.ts`), un test unitaire (`.test.tsx`), et son fichier principal (`.tsx`). |
 | `hooks/`             | Regroupe des hooks personnalisés pour encapsuler la logique métier propre à cette fonctionnalité.  <br/> - Permet de simplifier et de réutiliser la logique dans les composants ou autres parties de la fonctionnalité. |
 | `types/`             | Déclare les types TypeScript spécifiques à cette fonctionnalité.   <br/> - Définit les interfaces et les types nécessaires pour les données manipulées ou affichées dans cette fonctionnalité. |
-| `page.tsx`           | Fichier principal de la page (point d'entrée)  <br/> - Importe le composant principal de la fonctionnalité (par exemple, `Historique`).  <br/> - Inclut la fonction `generateMetadata` pour définir le titre et la description (SEO) de la page.                                |
- 
+| `page.tsx`           | Fichier principal de la page (point d'entrée)  <br/> - Importe le composant principal de la fonctionnalité (par exemple, `Historique.tsx`).  <br/> - Inclut la fonction `generateMetadata` pour définir le titre et la description (SEO) de la page.                                |
 
+ <br/>
+
+ 
+## SEO avec `generateMetadata`
+
+Une fonction de base `generateMetadata` est définie pour fournir les métadonnées par défaut. Elle est automatiquement importée dans le layout principal de l'application.
+
+Exemple dans le layout :
+```typescript
+export const generateMetadata = async (): Promise<Metadata> => {
+  return baseGenerateMetadata();
+};
+```
+
+Chaque page dispose de son propre dossier avec :<br/>
+•	Une page principale (page.tsx), où le composant principal est importé.<br/>
+•	Une fonction locale generateMetadata pour affiner les métadonnées spécifiques à la page.
+
+### Exemple pour la page Historique
+
+```typescript
+import Historique from './Historique';
+export async function generateMetadata() {
+  return {
+    title: 'Historique des Scores',
+    description:
+      "Consultez l'historique des courses et découvrez les gagnants des précédentes aventures épiques dans Rocket Race.",
+  };
+}
+
+const Page = () => {
+  return <Historique />;
+};
+
+export default Page;
+```
 
 
 
@@ -422,6 +473,31 @@ const handleOverlayClose = () => {
   }, 2000); // Durée de l'animation
 };
 
+```
+
+
+## 4. Gestion de l'audio depuis le header avec un bouton on/off
+
+### Contexte
+La musique de fond améliore l’immersion, mais nécessite un contrôle utilisateur pour activer ou désactiver l’audio. 
+La méthode **toogleMusic** permet de désactiver l'etat qui a été intialisé dès l'arrivée de l'application
+
+```typescript
+export const useAudioStore = create((set) => ({
+  isMuted: true,
+  audioRef: null,
+  setAudioRef: (ref) => set({ audioRef: ref }),
+  toggleMusic: () =>
+    set((state) => {
+      if (state.audioRef) {
+        state.audioRef.paused
+          ? state.audioRef.play()
+          : state.audioRef.pause();
+        return { isMuted: !state.audioRef.paused };
+      }
+      return state;
+    }),
+}));
 ```
 
 <br/><br/>
@@ -652,4 +728,27 @@ export const transformRocketData = (
   progress: progress || 0,
 });
 ```
+
+
+<br/><br/>
+
+# Pistes d'amélioration des performances
+
+## 1. **Lighthouse**
+ Lighthouse - plugin intégré à Chrome DevTools, pour auditer la performance, l'accessibilité, le SEO et les bonnes pratiques de  l'application. Pour analyser les résultats pour optimiser les temps de chargement, réduire les ressources inutilisées et améliorer l'expérience utilisateur. 
+ 
+**Exemple la page d'accueil**
+<br/>
+ <img src="./docs/lightouse-tool.png" alt="Lighthouse tool" width="50%">
+
+
+## 2. **React Profiler**
+React Profiler pour analyser les rendus des composants React. Pour identitfier les rendus inutiles, coûteux et pour les optimiser au besoin avec `React.memo`, `useMemo` ou `useCallback`.
+
+## 3. **Webpack Bundle Analyzer**
+Webpack Bundle Analyzer pour visualiser la taille des fichiers générés par Webpack. pour pouvoir réduire les dépendances inutiles, et optimiser les bundles, et mettez en place le code-splitting pour des temps de chargement plus rapides.
+
+
+<br/><br/>
+
 

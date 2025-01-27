@@ -28,7 +28,8 @@
       "@hooks/*": ["src/hooks/*"],
       "@lib/*": ["src/lib/*"],
       "@providers/*": ["src/providers/*"],
-      "@services/*": ["src/services/*"]
+      "@services/*": ["src/services/*"],
+      "@transformers/*": ["src/transformers/*"]
     }
   },
   "include": [
@@ -38,7 +39,11 @@
     ".next/types/**/*.ts",
     "src",
     "tests",
-    "vitest.setup.ts"
+    "vitest.setup.ts",
+    "../commitlint.config.ts",
+    "../commitlint.config.ts",
+    "../commitlint.config.ts",
+    "../commitlint.config.ts"
   ],
   "exclude": ["node_modules"]
 }

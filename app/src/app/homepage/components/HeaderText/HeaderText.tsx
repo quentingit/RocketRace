@@ -1,3 +1,4 @@
+import React from 'react';
 const HeaderText = () => (
   <>
     <h1 className="text-5xl mb-10 md:text-6xl font-extrabold animate-pulse text-neon-blue z-10 tracking-widest animate-crt-flicker">

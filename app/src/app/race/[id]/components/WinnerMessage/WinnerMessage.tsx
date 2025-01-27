@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 import Confetti from 'react-confetti';
 import { RaceEnriched } from '@appTypes/enrichedTypes';
@@ -27,7 +28,10 @@ const WinnerMessage = ({
     {/* Trophée animé */}
     <div className="flex flex-col items-center mb-6">
       <div className="relative">
-        <div className="text-neon-yellow text-9xl animate-pulse-neon mb-4">
+        <div
+          className="text-neon-yellow text-9xl animate-pulse-neon mb-4"
+          data-testid="trophy"
+        >
           🏆
         </div>
       </div>
@@ -39,9 +43,7 @@ const WinnerMessage = ({
     {/* Message d'explosion */}
     {rocketNameExploded && (
       <div className="bg-black bg-opacity-70 px-6 py-4 rounded-md shadow-lg text-neon-red font-pixel text-center animate-crt-flicker mb-6">
-        💥 La fusée{' '}
-        <span className="text-neon-yellow">{rocketNameExploded}</span> a explosé
-        !
+        💥 La fusée {rocketNameExploded} a explosé !
       </div>
     )}
 

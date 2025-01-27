@@ -19,4 +19,3 @@ const config: StorybookConfig = {
 };
 
 export default config;
-//stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],

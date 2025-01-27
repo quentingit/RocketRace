@@ -30,6 +30,16 @@ jobs:
         run: npm install
         working-directory: ./app
 
+      - name: Verify static assets
+        working-directory: ./app
+        run: ls -R public
+
+      - name: Extract repository name
+        run: echo "BASE_PATH=/$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)" >> $GITHUB_ENV
+
+      - name: Check BASE_PATH
+        run: echo "BASE_PATH=$BASE_PATH"
+
       - name: Build Storybook
         run: npm run build-storybook
         working-directory: ./app

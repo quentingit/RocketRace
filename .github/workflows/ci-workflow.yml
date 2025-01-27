@@ -27,7 +27,7 @@ jobs:
         working-directory: ./app
 
       - name: Run ESLint
-        run: npm lint
+        run: npm run lint
         working-directory: ./app
 
   test:

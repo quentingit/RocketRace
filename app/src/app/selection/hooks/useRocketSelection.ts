@@ -1,6 +1,11 @@
 // hooks/useRocketSelection.jsx
 import { useState } from 'react';
-import { useQuery, useMutation, ApolloError } from '@apollo/client';
+import {
+  useQuery,
+  useMutation,
+  ApolloError,
+  ApolloQueryResult,
+} from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import useRaceStore from 'src/store/useRaceStore';
 import useRaceHistoryStore from 'src/store/useRaceHistoryStore';
@@ -20,8 +25,7 @@ type UseRocketSelectionResult = {
   loading: boolean;
   error?: ApolloError;
   rockets: RocketInteraction[];
-  // refetch renvoie un Promise avec le résultat du type RocketsQuery :
-  refetch: () => Promise<unknown>;
+  refetch: () => Promise<ApolloQueryResult<RocketsQuery>>;
   selectedRockets: RocketInteraction[];
   selectedRocketNames: string;
   toggleRocketSelection: (rocket: RocketInteraction) => void;
