@@ -1,8 +1,6 @@
 ## 🚀 RocketRace
 
 
-👉 Pour jouer a **Rocket Race**  :  [Jouer maintenant](https://rocket-race-ilszx07vh-quentin-s-projects-1c49e330.vercel.app)
-
 <table>
   <tr>
     <td>
