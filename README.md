@@ -1,6 +1,6 @@
 ## 🚀 RocketRace
 
-👉 Pour jouer a **Rocket Race**  :  [Jouer maintenant](https://rocketrace.quentinberanger.com/)   ou    [https://rocketrace.quentinberanger.com/](https://rocketrace.quentinberanger.com/) 
+
       
 <table>
   <tr>
